@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Socialite;
 use Auth;
 use App\User;
@@ -22,6 +24,11 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    
+    public function showLoginForm()
+    {
+        return redirect('/');
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -40,5 +47,16 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    
+    public function ifLogin()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->hasRole('admin')) {
+                return redirect('/admin/home');
+            } else {
+                return redirect('/user/home');
+            }
+        } else {
+            return view('auth.loginauth');
+        }
+    }    
 }

@@ -1,5 +1,6 @@
 <?php
-Route::redirect('/', 'admin/home');
+// Route::redirect('/', 'admin/home');
+Route::get('/', 'Auth\LoginController@ifLogin'); // Dashboard
 
 Auth::routes(['register' => false]);
 
@@ -16,3 +17,25 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('users', 'Admin\UsersController');
     Route::delete('users_mass_destroy', 'Admin\UsersController@massDestroy')->name('users.mass_destroy');
 });
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('/home', 'User\dashboardController@index')->name('index'); // Dashboard
+
+    // Reference
+    Route::resource('/vehicle', 'User\reference\armadaController');
+    Route::resource('/driver', 'User\reference\driverController');
+    Route::resource('/customer', 'User\reference\customerController');
+    Route::resource('/destination', 'User\reference\tujuanController');
+
+    // Biaya Perbaikan Unit
+    Route::resource('/bpu', 'User\rekap\biayaPerbaikanUnitController');
+    Route::resource('/pb', 'User\rekap\pemakaianBanController');
+    Route::resource('/pu', 'User\rekap\pendapatanUnitController');
+    Route::resource('/bbm', 'User\rekap\pengeluaranBBMController');
+    Route::resource('/pembayaran', 'User\rekap\pembayaranController');
+    Route::resource('/resume', 'User\rekap\resumeSPKController');
+});
+
+// Route::get('/', function () {
+//     return view('auth.loginauth');
+// });
