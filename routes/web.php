@@ -22,15 +22,22 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
     Route::get('/home', 'User\dashboardController@index')->name('index'); // Dashboard
 
     // Reference
-    Route::get('/vehicle/hapus/{id}', 'User\reference\armadaController@hapus')->name('api.vehicle.hapus');
-    Route::post('/vehicle/ubah/{id}', 'User\reference\armadaController@ubah')->name('api.vehicle.ubah');
-    Route::get('/vehicle/getubah/{id}', 'User\reference\armadaController@getubah')->name('api.vehicle.getubah');
-    Route::post('/vehicle/tambah', 'User\reference\armadaController@tambah')->name('api.vehicle.tambah');
-    Route::get('/vehicle/table', 'User\reference\armadaController@table')->name('api.vehicle.table');
-    Route::resource('/vehicle', 'User\reference\armadaController');
-    Route::resource('/driver', 'User\reference\driverController');
-    Route::resource('/customer', 'User\reference\customerController');
-    Route::resource('/destination', 'User\reference\tujuanController');
+        // Vehicle
+        Route::get('/vehicle/hapus/{id}', 'User\reference\vehicleController@hapus')->name('vehicle.hapus');
+        Route::post('/vehicle/ubah/{id}', 'User\reference\vehicleController@ubah')->name('vehicle.ubah');
+        Route::get('/vehicle/getubah/{id}', 'User\reference\vehicleController@getubah')->name('vehicle.getubah');
+        Route::post('/vehicle/tambah', 'User\reference\vehicleController@tambah')->name('vehicle.tambah');
+        Route::get('/vehicle/table', 'User\reference\vehicleController@table')->name('vehicle.table');
+        Route::get('/vehicle', 'User\reference\vehicleController@index')->name('vehicle.index');
+        // Driver
+        Route::get('/driver/hapus/{id}', 'User\reference\driverController@hapus')->name('driver.hapus');
+        Route::post('/driver/ubah/{id}', 'User\reference\driverController@ubah')->name('driver.ubah');
+        Route::get('/driver/getubah/{id}', 'User\reference\driverController@getubah')->name('driver.getubah');
+        Route::post('/driver/tambah', 'User\reference\driverController@tambah')->name('driver.tambah');
+        Route::get('/driver/table', 'User\reference\driverController@table')->name('driver.table');
+        Route::get('/driver', 'User\reference\driverController@index')->name('driver.index');
+        // Customer
+        // Destination
 
     // Biaya Perbaikan Unit
     Route::resource('/bpu', 'User\rekap\biayaPerbaikanUnitController');

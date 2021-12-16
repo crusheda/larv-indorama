@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Roles-Permissions Manager',
+    'name' => 'PT.Indorama Transport',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
      |--------------------------------------------------------------------------
@@ -90,7 +91,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    // 'locale' => 'en',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------

@@ -5,7 +5,7 @@
   <nav class="vertnav navbar navbar-light">
     <!-- nav bar -->
     <div class="w-100 mb-4 d-flex">
-      <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+      <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="home">
         {{-- <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
           <g>
             <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
@@ -13,8 +13,8 @@
             <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
           </g>
         </svg> --}}
-        {{-- <img src="{{ asset('img/font.png') }}" width="50" alt=""> --}}
-        <h3>IAD</h3>
+        <img src="{{ asset('img/logo.png') }}" width="30" alt="LOGO IRM">
+        {{-- <h3>IAD</h3> --}}
       </a>
     </div>
     <ul class="navbar-nav flex-fill w-100 mb-2">
@@ -45,7 +45,7 @@
     <ul class="navbar-nav flex-fill w-100 mb-2">
       <li class="nav-item dropdown">
         <a href="#warehouse" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-          <i class="fe fe-truck fe-16"></i>
+          <i class="fa fa-industry fe-16"></i>
           <span class="ml-3 item-text">Warehouse</span>
         </a>
         <ul class="collapse list-unstyled pl-4 w-100" id="warehouse">
@@ -63,7 +63,7 @@
       </li> --}}
       <li class="nav-item w-100">
         <a class="nav-link" href="customer">
-          <i class="fe fe-award fe-16"></i>
+          <i class="fa fa-handshake-o fe-16"></i>
           <span class="ml-3 item-text">Customer</span>
         </a>
       </li>
@@ -80,7 +80,7 @@
     <ul class="navbar-nav flex-fill w-100 mb-2">
       <li class="nav-item dropdown">
         <a href="#spk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-          <i class="fe fe-shopping-bag fe-16"></i>
+          <i class="fa fa-legal fe-16"></i>
           <span class="ml-3 item-text">SPK CPO</span>
         </a>
         <ul class="collapse list-unstyled pl-4 w-100" id="spk">
@@ -92,7 +92,7 @@
       </li>
       <li class="nav-item w-100">
         <a class="nav-link" href="bpu">
-          <i class="fe fe-shopping-cart fe-16"></i>
+          <i class="fa fa-wrench fe-16"></i>
           <span class="ml-3 item-text">Perbaikan Unit</span>
         </a>
       </li>
@@ -104,7 +104,7 @@
       </li>
       <li class="nav-item w-100">
         <a class="nav-link" href="pu">
-          <i class="fe fe-tag fe-16"></i>
+          <i class="fa fa-money fe-16"></i>
           <span class="ml-3 item-text">Pendapatan Unit</span>
         </a>
       </li>

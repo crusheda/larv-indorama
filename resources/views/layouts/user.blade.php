@@ -4,16 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <meta name="author" content="Yussuf Faisal, S.Kom">
+    <link rel="icon" href="{{ asset('img/logo.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ Auth::user()->name }} - PT.Indorama Artha Niaga</title>
+    <title>{{ Auth::user()->name }} - PT.Indorama Transport</title>
 
     @include('inc.css')
     @include('sweetalert::alert')
 
   </head>
   <body class="vertical  light  ">
+    <a name="top" class="top"></a> 
+    
     <div class="wrapper">
 
       @include('inc.navbar')

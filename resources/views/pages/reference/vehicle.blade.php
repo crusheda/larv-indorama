@@ -101,7 +101,7 @@
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
                   <td>${item.nopol}</td>
-                  <td>${item.armada}</td>
+                  <td>${item.armada? item.armada : "" }</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -133,7 +133,7 @@
               searching: true,
               dom: 'Bfrtip',
               buttons: [
-                  'excel', 'pdf','colvis'
+                  'excel', 'pdf','colvis',
               ],
               select: {
                   style: 'single'
@@ -151,7 +151,7 @@
                       pdf: 'Jadikan PDF',
                   }
               },
-              order: [[ 4, "desc" ]],
+              order: [[ 3, "desc" ]],
               pageLength: 10
             }
           );
@@ -164,7 +164,7 @@
 <script>
   //function
   function refreshTable() {
-    $("#tampil-tbody").empty().append(`<tr><td colspan="6"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
+    $("#tampil-tbody").empty().append(`<tr><td colspan="5"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
     $.ajax(
       {
         url: "./vehicle/table",
@@ -180,7 +180,7 @@
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
                   <td>${item.nopol}</td>
-                  <td>${item.armada}</td>
+                  <td>${item.armada? item.armada : "" }</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -217,36 +217,50 @@
     var armada = $("#armada_add").val();
     // $("#nopol_add").val("");
     // $("#armada_add").val("");
-
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      method: 'POST',
-      url: './vehicle/tambah', 
-      dataType: 'json', 
-      data: { 
-        nopol: nopol,
-        armada: armada,
-      }, 
-      success: function(res) {
-        Swal.fire({
-          title: 'Tambah Data Berhasil!',
-          text: 'Silakan periksa kembali data anda',
-          icon: 'success',
-          showConfirmButton:false,
-          showCancelButton:false,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          timer: 3000,
-          timerProgressBar: true,
-          backdrop: `rgba(26,27,41,0.8)`,
-        });
-        if (res) {
-          refreshTable();
+    if (nopol == "") {
+      Swal.fire({
+        title: 'Pesan Galat!',
+        text: 'Nomor Polisi wajib diisi.',
+        icon: 'error',
+        showConfirmButton:false,
+        showCancelButton:false,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        timerProgressBar: true,
+        backdrop: `rgba(26,27,41,0.8)`,
+      });
+    } else {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: './vehicle/tambah', 
+        dataType: 'json', 
+        data: { 
+          nopol: nopol,
+          armada: armada,
+        }, 
+        success: function(res) {
+          Swal.fire({
+            title: 'Tambah Data Berhasil!',
+            text: 'Silakan periksa kembali data anda',
+            icon: 'success',
+            showConfirmButton:false,
+            showCancelButton:false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            timer: 3000,
+            timerProgressBar: true,
+            backdrop: `rgba(26,27,41,0.8)`,
+          });
+          if (res) {
+            refreshTable();
+          }
         }
-      }
-    }); 
+      }); 
+    }
   }
   
   function showUbah(id) {
@@ -260,7 +274,6 @@
           $("#id_edit").val(res.id);
           $("#nopol_edit").val(res.nopol);
           $("#armada_edit").val(res.armada);
-          console.log("SUKSES");
         }
       }
     );
@@ -270,40 +283,53 @@
     var id = $("#id_edit").val();
     var nopol = $("#nopol_edit").val();
     var armada = $("#armada_edit").val();
-    // $("#nopol_add").val("");
-    // $("#armada_add").val("");
-
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      method: 'POST',
-      url: './vehicle/ubah/'+id, 
-      dataType: 'json', 
-      data: { 
-        id: id,
-        nopol: nopol,
-        armada: armada,
-      }, 
-      success: function(res) {
-        Swal.fire({
-          title: 'Tambah Data Berhasil!',
-          text: 'Silakan periksa kembali data anda',
-          icon: 'success',
-          showConfirmButton:false,
-          showCancelButton:false,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          timer: 3000,
-          timerProgressBar: true,
-          backdrop: `rgba(26,27,41,0.8)`,
-        });
-        if (res) {
-          $('#modal-ubah').modal('close');
-          refreshTable();
+    
+    if (nopol == "") {
+      Swal.fire({
+        title: 'Pesan Galat!',
+        text: 'Nomor Polisi wajib diisi.',
+        icon: 'error',
+        showConfirmButton:false,
+        showCancelButton:false,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        timerProgressBar: true,
+        backdrop: `rgba(26,27,41,0.8)`,
+      });
+    } else {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: './vehicle/ubah/'+id, 
+        dataType: 'json', 
+        data: { 
+          id: id,
+          nopol: nopol,
+          armada: armada,
+        }, 
+        success: function(res) {
+          Swal.fire({
+            title: 'Tambah Data Berhasil!',
+            text: 'Silakan periksa kembali data anda',
+            icon: 'success',
+            showConfirmButton:false,
+            showCancelButton:false,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            timer: 3000,
+            timerProgressBar: true,
+            backdrop: `rgba(26,27,41,0.8)`,
+          });
+          if (res) {
+            $('#modal-ubah').modal('hide');
+            refreshTable();
+          }
         }
-      }
-    }); 
+      });
+    }
   }
 
   function hapus(id) {
@@ -334,7 +360,7 @@
               showConfirmButton:false,
               showCancelButton:false,
               allowOutsideClick: true,
-              allowEscapeKey: false,
+              allowEscapeKey: true,
               timer: 3000,
               timerProgressBar: true,
               backdrop: `rgba(26,27,41,0.8)`,
