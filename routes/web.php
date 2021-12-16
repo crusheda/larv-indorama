@@ -22,6 +22,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
     Route::get('/home', 'User\dashboardController@index')->name('index'); // Dashboard
 
     // Reference
+    Route::get('/vehicle/hapus/{id}', 'User\reference\armadaController@hapus')->name('api.vehicle.hapus');
+    Route::post('/vehicle/ubah/{id}', 'User\reference\armadaController@ubah')->name('api.vehicle.ubah');
+    Route::get('/vehicle/getubah/{id}', 'User\reference\armadaController@getubah')->name('api.vehicle.getubah');
+    Route::post('/vehicle/tambah', 'User\reference\armadaController@tambah')->name('api.vehicle.tambah');
+    Route::get('/vehicle/table', 'User\reference\armadaController@table')->name('api.vehicle.table');
     Route::resource('/vehicle', 'User\reference\armadaController');
     Route::resource('/driver', 'User\reference\driverController');
     Route::resource('/customer', 'User\reference\customerController');

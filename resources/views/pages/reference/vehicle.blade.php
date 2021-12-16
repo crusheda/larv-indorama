@@ -3,770 +3,78 @@
 @section('content')
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-12">
-      <h2 class="page-title">Tambah Armada Baru</h2>
+    <div class="col-md-12">
+      <h2 class="page-title"><i class="fe fe-truck"></i> Tambah Armada Baru</h2>
       <p class="text-muted">Lengkapi data armada anda.</p>
+    </div>
+    <div class="col-md-4">
       <div class="card shadow mb-4">
         <div class="card-header">
           <strong class="card-title">Tambah data baru</strong>
         </div>
         <div class="card-body">
-          <div class="form-group mb-3">
-            <label for="simpleinput">No. Polisi</label>
-            <input type="text" id="simpleinput" class="form-control">
+          <div class="form-group">
+            <label>No. Polisi</label>
+            <input type="text" name="nopol" id="nopol_add" class="form-control" placeholder="e.g. KH 1234 XX" required autofocus>
           </div>
-          <button class="btn btn-primary" type="submit">Submit form</button>
+          <div class="form-group">
+            <label>Merk</label>
+            <input type="text" name="armada" id="armada_add" class="form-control" placeholder="e.g. Canter">
+          </div>
+          <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
         </div>
       </div> <!-- / .card -->
+    </div>
+    <div class="col-md-8">
       <div class="card shadow">
         <div class="card-header">
           <strong class="card-title">Tabel Armada</strong>
+          <button type="button" class="btn btn-sm float-right" onclick="refreshTable()"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
         </div>
         <div class="card-body">
-          <table class="table datatables" id="dataTable-1">
-            <thead>
-              <tr>
-                <th></th>
-                <th>#</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Department</th>
-                <th>Company</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>368</td>
-                <td>Imani Lara</td>
-                <td>(478) 446-9234</td>
-                <td>Asset Management</td>
-                <td>Borland</td>
-                <td>9022 Suspendisse Rd.</td>
-                <td>High Wycombe</td>
-                <td>Jun 8, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>368</td>
-                <td>Imani Lara</td>
-                <td>(478) 446-9234</td>
-                <td>Asset Management</td>
-                <td>Borland</td>
-                <td>9022 Suspendisse Rd.</td>
-                <td>High Wycombe</td>
-                <td>Jun 8, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>323</td>
-                <td>Walter Sawyer</td>
-                <td>(671) 969-1704</td>
-                <td>Tech Support</td>
-                <td>Macromedia</td>
-                <td>Ap #708-5152 Cursus. Ave</td>
-                <td>Bath</td>
-                <td>May 8, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>371</td>
-                <td>Noelle Ray</td>
-                <td>(803) 792-2559</td>
-                <td>Human Resources</td>
-                <td>Sibelius</td>
-                <td>Ap #992-8933 Sagittis Street</td>
-                <td>Ivanteyevka</td>
-                <td>Apr 2, 2021</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>302</td>
-                <td>Portia Nolan</td>
-                <td>(216) 946-1119</td>
-                <td>Payroll</td>
-                <td>Microsoft</td>
-                <td>Ap #461-4415 Enim Rd.</td>
-                <td>Kanpur Cantonment</td>
-                <td>Dec 4, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>443</td>
-                <td>Scarlett Anderson</td>
-                <td>(486) 309-3564</td>
-                <td>Tech Support</td>
-                <td>Yahoo</td>
-                <td>P.O. Box 988, 7282 Lobortis Avenue</td>
-                <td>Lot</td>
-                <td>Dec 27, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>345</td>
-                <td>Kevyn Mills</td>
-                <td>(976) 873-4833</td>
-                <td>Tech Support</td>
-                <td>Sibelius</td>
-                <td>P.O. Box 666, 9803 Sed Avenue</td>
-                <td>Fino Mornasco</td>
-                <td>Dec 24, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>356</td>
-                <td>Sharon Buckley</td>
-                <td>(429) 517-6784</td>
-                <td>Tech Support</td>
-                <td>Sibelius</td>
-                <td>Ap #372-3407 Sed St.</td>
-                <td>Lompret</td>
-                <td>Mar 3, 2021</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>263</td>
-                <td>Fletcher Everett</td>
-                <td>(735) 632-1255</td>
-                <td>Customer Service</td>
-                <td>Borland</td>
-                <td>Ap #688-5120 Egestas Avenue</td>
-                <td>Beerzel</td>
-                <td>Mar 27, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>227</td>
-                <td>Bertha Ball</td>
-                <td>(656) 680-1553</td>
-                <td>Sales and Marketing</td>
-                <td>Finale</td>
-                <td>951-3836 Ac Rd.</td>
-                <td>Cherbourg-Octeville</td>
-                <td>Feb 11, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>396</td>
-                <td>Phoebe Cobb</td>
-                <td>(663) 233-0340</td>
-                <td>Human Resources</td>
-                <td>Adobe</td>
-                <td>922 Enim. Avenue</td>
-                <td>Fahler</td>
-                <td>May 18, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>276</td>
-                <td>Lillith Joseph</td>
-                <td>(406) 343-5430</td>
-                <td>Advertising</td>
-                <td>Macromedia</td>
-                <td>Ap #363-1293 Neque St.</td>
-                <td>Vieuxville</td>
-                <td>Sep 22, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>222</td>
-                <td>Ruth Shaffer</td>
-                <td>(488) 102-5116</td>
-                <td>Human Resources</td>
-                <td>Lycos</td>
-                <td>Ap #117-5518 A, Rd.</td>
-                <td>Buxton</td>
-                <td>Feb 19, 2021</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>397</td>
-                <td>Jerry Orr</td>
-                <td>(657) 274-3095</td>
-                <td>Accounting</td>
-                <td>Lycos</td>
-                <td>919-782 Vitae Street</td>
-                <td>La Plata</td>
-                <td>Jul 24, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>218</td>
-                <td>Hayfa Cox</td>
-                <td>(602) 569-0400</td>
-                <td>Asset Management</td>
-                <td>Altavista</td>
-                <td>Ap #189-4628 Curabitur Rd.</td>
-                <td>Dindigul</td>
-                <td>Dec 8, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>361</td>
-                <td>Ishmael Mcleod</td>
-                <td>(148) 643-9938</td>
-                <td>Customer Service</td>
-                <td>Yahoo</td>
-                <td>P.O. Box 253, 2328 Mauris St.</td>
-                <td>San Juan del Río</td>
-                <td>Feb 13, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>281</td>
-                <td>Kevyn Snyder</td>
-                <td>(659) 649-4750</td>
-                <td>Customer Relations</td>
-                <td>Macromedia</td>
-                <td>P.O. Box 731, 7143 Sem Rd.</td>
-                <td>Taber</td>
-                <td>Mar 1, 2021</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>236</td>
-                <td>Patience Sanders</td>
-                <td>(287) 279-0868</td>
-                <td>Legal Department</td>
-                <td>Sibelius</td>
-                <td>664-7649 Euismod Rd.</td>
-                <td>Strijtem</td>
-                <td>Mar 26, 2021</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>394</td>
-                <td>Tamara Cooke</td>
-                <td>(998) 560-1052</td>
-                <td>Asset Management</td>
-                <td>Macromedia</td>
-                <td>Ap #507-3545 Enim. St.</td>
-                <td>Hattiesburg</td>
-                <td>Jan 25, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>276</td>
-                <td>Abel Raymond</td>
-                <td>(930) 726-7338</td>
-                <td>Quality Assurance</td>
-                <td>Yahoo</td>
-                <td>5370 Vestibulum. Avenue</td>
-                <td>La Cruz</td>
-                <td>Jul 3, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>388</td>
-                <td>Honorato Nichols</td>
-                <td>(561) 758-1908</td>
-                <td>Legal Department</td>
-                <td>Microsoft</td>
-                <td>P.O. Box 925, 286 Ipsum Street</td>
-                <td>St. John's</td>
-                <td>Aug 29, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>498</td>
-                <td>Ishmael Aguirre</td>
-                <td>(594) 850-4912</td>
-                <td>Media Relations</td>
-                <td>Yahoo</td>
-                <td>P.O. Box 398, 8254 Pede, Av.</td>
-                <td>Cannes</td>
-                <td>Jul 5, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>277</td>
-                <td>Christian Nieves</td>
-                <td>(933) 345-5314</td>
-                <td>Human Resources</td>
-                <td>Cakewalk</td>
-                <td>889-9118 Ipsum Rd.</td>
-                <td>Berhampore</td>
-                <td>Jul 8, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>215</td>
-                <td>Nevada Weber</td>
-                <td>(603) 763-9893</td>
-                <td>Human Resources</td>
-                <td>Altavista</td>
-                <td>Ap #439-124 Eros St.</td>
-                <td>Cádiz</td>
-                <td>Nov 2, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>449</td>
-                <td>Addison Tran</td>
-                <td>(200) 967-8241</td>
-                <td>Sales and Marketing</td>
-                <td>Microsoft</td>
-                <td>214-4812 Sed, Rd.</td>
-                <td>Offenbach am Main</td>
-                <td>Nov 30, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>272</td>
-                <td>Brenna Reid</td>
-                <td>(925) 647-2628</td>
-                <td>Finances</td>
-                <td>Microsoft</td>
-                <td>P.O. Box 604, 587 Ac Street</td>
-                <td>Gallicchio</td>
-                <td>Jul 1, 2019</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>380</td>
-                <td>Kirby Summers</td>
-                <td>(140) 854-4790</td>
-                <td>Human Resources</td>
-                <td>Lycos</td>
-                <td>Ap #611-2789 Donec Ave</td>
-                <td>s Herenelderen</td>
-                <td>Sep 23, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>316</td>
-                <td>Cairo Villarreal</td>
-                <td>(410) 944-9399</td>
-                <td>Sales and Marketing</td>
-                <td>Borland</td>
-                <td>P.O. Box 631, 8966 Dapibus Street</td>
-                <td>Alingsås</td>
-                <td>Jan 10, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>369</td>
-                <td>Savannah Gallagher</td>
-                <td>(519) 628-8362</td>
-                <td>Media Relations</td>
-                <td>Microsoft</td>
-                <td>6794 Lorem St.</td>
-                <td>Knoxville</td>
-                <td>Jul 27, 2020</td>
-                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table datatables table-striped" id="tableku">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>NOPOL</th>
+                  <th>ARMADA</th>
+                  <th>UPDATE</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tampil-tbody"><tr><td colspan="5"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
+            </table>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-ubah" role="dialog" aria-labelledby="confirmFormLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Ubah Data Kendaraan
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="id" id="id_edit" hidden>
+        <div class="form-group">
+          <label>No. Polisi</label>
+          <input type="text" name="nopol" id="nopol_edit" value="" class="form-control" placeholder="e.g. KH 1234 XX" required autofocus>
+        </div>
+        <div class="form-group">
+          <label>Merk</label>
+          <input type="text" name="armada" id="armada_edit" value="" class="form-control" placeholder="e.g. Canter">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success text-white float-right" onclick="ubah()"><i class="fe fe-save"></i> Submit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-fw fa fa-close"></i> Tutup</button>
       </div>
     </div>
   </div>
@@ -776,15 +84,281 @@
 @include('inc.script')
 
 <script>
-  $('#dataTable-1').DataTable(
-    {
-      autoWidth: true,
-      "lengthMenu": [
-        [16, 32, 64, -1],
-        [16, 32, 64, "All"]
-      ]
-    }
-  );
+  $(document).ready( function () {
+    
+    $.ajax(
+      {
+        url: "./vehicle/table",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+          $("#tampil-tbody").empty();
+          if(res.length == 0){
+            $("#tampil-tbody").append(`<tr><td colspan="5"><center><i class="fa fa-frown fa-fw"></i> Tidak ditemukan data.</center></td></tr>`);
+          } else {
+            res.forEach(item => {
+              $("#tampil-tbody").append(`
+                <tr id="data${item.id}">
+                  <td>${item.id}</td>
+                  <td>${item.nopol}</td>
+                  <td>${item.armada}</td>
+                  <td>${item.updated_at}</td>
+                  <td>
+                    <center>
+                      <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="aksi${item.id}">
+                        <span class="text-muted sr-only">Aksi</span>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                      </div>
+                    </center>
+                  </td>
+                </tr>
+              `);
+            });
+              // content = "<tr id='data"+ item.id +"'><td>" + item.id + "</td><td>" 
+              //   + item.nopol + "</td><td>" 
+              //   + item.armada + "</td><td>"
+              //   + item.updated_at + "</td>"
+              //   + "<td><center><div class='btn-group' role='group'>"
+              //   + "<button class='btn btn-sm dropdown-toggle more-horizontal' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span class='text-muted sr-only'>Aksi</span></button>"
+              //   + "<div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='./perencanaan/"+item.id+"'>Ubah</a>"
+              //   + "<a class='dropdown-item' onclick='hapus("+item.id+")' >Hapus</a></div></div></center></td></tr>";
+              // $('#tampil-tbody').append(content);
+          }
+          $('#tableku').DataTable(
+            {
+              paging: true,
+              searching: true,
+              dom: 'Bfrtip',
+              buttons: [
+                  'excel', 'pdf','colvis'
+              ],
+              select: {
+                  style: 'single'
+              },
+              'columnDefs': [
+                  // { targets: 0, visible: false },
+                  // { targets: 3, visible: false },
+                  // { targets: 6, visible: false },
+                  // { targets: 8, visible: false },
+              ],
+              language: {
+                  buttons: {
+                      colvis: 'Sembunyikan Kolom',
+                      excel: 'Jadikan Excell',
+                      pdf: 'Jadikan PDF',
+                  }
+              },
+              order: [[ 4, "desc" ]],
+              pageLength: 10
+            }
+          );
+        }
+      }
+    );
+  });
+</script>
+
+<script>
+  //function
+  function refreshTable() {
+    $("#tampil-tbody").empty().append(`<tr><td colspan="6"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
+    $.ajax(
+      {
+        url: "./vehicle/table",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+          $("#tampil-tbody").empty();
+          if(res.length == 0){
+            $("#tampil-tbody").append(`<tr><td colspan="5"><center><i class="fa fa-frown fa-fw"></i> Tidak ditemukan data.</center></td></tr>`);
+          } else {
+            res.forEach(item => {
+              $("#tampil-tbody").append(`
+                <tr id="data${item.id}">
+                  <td>${item.id}</td>
+                  <td>${item.nopol}</td>
+                  <td>${item.armada}</td>
+                  <td>${item.updated_at}</td>
+                  <td>
+                    <center>
+                      <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="text-muted sr-only">Aksi</span>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                      </div>
+                    </center>
+                  </td>
+                </tr>
+              `);
+            });
+              // content = "<tr id='data"+ item.id +"'><td>" + item.id + "</td><td>" 
+              //   + item.nopol + "</td><td>" 
+              //   + item.armada + "</td><td>"
+              //   + item.updated_at + "</td>"
+              //   + "<td><center><div class='btn-group' role='group'>"
+              //   + "<button class='btn btn-sm dropdown-toggle more-horizontal' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span class='text-muted sr-only'>Aksi</span></button>"
+              //   + "<div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='./perencanaan/"+item.id+"'>Ubah</a>"
+              //   + "<a class='dropdown-item' onclick='hapus("+item.id+")' >Hapus</a></div></div></center></td></tr>";
+              // $('#tampil-tbody').append(content);
+          }
+          $('#tableku').DataTable();
+        }
+      }
+    );
+  }
+
+  function tambah() {
+    var nopol = $("#nopol_add").val();
+    var armada = $("#armada_add").val();
+    // $("#nopol_add").val("");
+    // $("#armada_add").val("");
+
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      method: 'POST',
+      url: './vehicle/tambah', 
+      dataType: 'json', 
+      data: { 
+        nopol: nopol,
+        armada: armada,
+      }, 
+      success: function(res) {
+        Swal.fire({
+          title: 'Tambah Data Berhasil!',
+          text: 'Silakan periksa kembali data anda',
+          icon: 'success',
+          showConfirmButton:false,
+          showCancelButton:false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          timer: 3000,
+          timerProgressBar: true,
+          backdrop: `rgba(26,27,41,0.8)`,
+        });
+        if (res) {
+          refreshTable();
+        }
+      }
+    }); 
+  }
+  
+  function showUbah(id) {
+    $('#modal-ubah').modal('show');
+    $.ajax(
+      {
+        url: "./vehicle/getubah/"+id,
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+          $("#id_edit").val(res.id);
+          $("#nopol_edit").val(res.nopol);
+          $("#armada_edit").val(res.armada);
+          console.log("SUKSES");
+        }
+      }
+    );
+  }
+
+  function ubah() {
+    var id = $("#id_edit").val();
+    var nopol = $("#nopol_edit").val();
+    var armada = $("#armada_edit").val();
+    // $("#nopol_add").val("");
+    // $("#armada_add").val("");
+
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      method: 'POST',
+      url: './vehicle/ubah/'+id, 
+      dataType: 'json', 
+      data: { 
+        id: id,
+        nopol: nopol,
+        armada: armada,
+      }, 
+      success: function(res) {
+        Swal.fire({
+          title: 'Tambah Data Berhasil!',
+          text: 'Silakan periksa kembali data anda',
+          icon: 'success',
+          showConfirmButton:false,
+          showCancelButton:false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          timer: 3000,
+          timerProgressBar: true,
+          backdrop: `rgba(26,27,41,0.8)`,
+        });
+        if (res) {
+          $('#modal-ubah').modal('close');
+          refreshTable();
+        }
+      }
+    }); 
+  }
+
+  function hapus(id) {
+    Swal.fire({
+      title: 'Apakah anda yakin?',
+      text: 'Untuk menghapus NOPOL Armada ID : '+id,
+      icon: 'warning',
+      reverseButtons: false,
+      showDenyButton: false,
+      showCloseButton: false,
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: '#FF4845',
+      confirmButtonText: `<i class="fa fa-trash"></i> Hapus`,
+      cancelButtonText: `<i class="fa fa-close"></i> Close`,
+      backdrop: `rgba(26,27,41,0.8)`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "./vehicle/hapus/"+id,
+          type: 'GET',
+          dataType: 'json', // added data type
+          success: function(res) {
+            Swal.fire({
+              title: `Hapus Berhasil!`,
+              text: 'Pada '+res,
+              icon: `success`,
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: false,
+              timer: 3000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+            refreshTable();
+          },
+          error: function(res) {
+            Swal.fire({
+              title: `Gagal di hapus!`,
+              text: 'Pada '+res,
+              icon: `error`,
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 3000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+          }
+        }); 
+      }
+    })
+  }
 </script>
 
 @endsection

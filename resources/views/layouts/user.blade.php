@@ -6,9 +6,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ Auth::user()->name }} - PT.Indorama Artha Niaga</title>
-    
+
     @include('inc.css')
+    @include('sweetalert::alert')
 
   </head>
   <body class="vertical  light  ">

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class destination extends Model
 {
-    protected $table = 'ref_destination';
+    protected $table = 'destination';
     public $timestamps = true;
     use SoftDeletes;
 }

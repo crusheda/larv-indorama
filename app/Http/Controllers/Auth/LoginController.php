@@ -50,11 +50,12 @@ class LoginController extends Controller
     public function ifLogin()
     {
         if (Auth::check()) {
-            if (Auth::user()->hasRole('admin')) {
+            if (Auth::user()->hasRole('administrator')) {
                 return redirect('/admin/home');
             } else {
                 return redirect('/user/home');
             }
+            // return view('home');
         } else {
             return view('auth.loginauth');
         }

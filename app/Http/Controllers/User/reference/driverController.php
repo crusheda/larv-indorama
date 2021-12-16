@@ -14,7 +14,7 @@ class driverController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.reference.driver');
     }
 
     /**

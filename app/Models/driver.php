@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class driver extends Model
 {
-    protected $table = 'ref_driver';
+    protected $table = 'driver';
     public $timestamps = true;
     use SoftDeletes;
 }

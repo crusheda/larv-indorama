@@ -13,6 +13,10 @@
 <script src="{{ asset('js/datamaps-zoomto.js') }}"></script>
 <script src="{{ asset('js/datamaps.custom.js') }}"></script>
 <script src="{{ asset('js/Chart.min.js') }}"></script>
+
+{{-- Sweetalert2 --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
   /* defind global options */
   Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;

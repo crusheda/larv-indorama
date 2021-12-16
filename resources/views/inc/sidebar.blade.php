@@ -44,11 +44,11 @@
     </p>
     <ul class="navbar-nav flex-fill w-100 mb-2">
       <li class="nav-item dropdown">
-        <a href="#ui-elements" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+        <a href="#warehouse" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
           <i class="fe fe-truck fe-16"></i>
           <span class="ml-3 item-text">Warehouse</span>
         </a>
-        <ul class="collapse list-unstyled pl-4 w-100" id="ui-elements">
+        <ul class="collapse list-unstyled pl-4 w-100" id="warehouse">
           <li class="nav-item">
             <a class="nav-link pl-3" href="vehicle"><span class="ml-1 item-text">Vehicle</span></a>
             <a class="nav-link pl-3" href="driver"><span class="ml-1 item-text">Driver</span></a>
@@ -79,11 +79,11 @@
     </p>
     <ul class="navbar-nav flex-fill w-100 mb-2">
       <li class="nav-item dropdown">
-        <a href="#ui-daily" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+        <a href="#spk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
           <i class="fe fe-shopping-bag fe-16"></i>
           <span class="ml-3 item-text">SPK CPO</span>
         </a>
-        <ul class="collapse list-unstyled pl-4 w-100" id="ui-daily">
+        <ul class="collapse list-unstyled pl-4 w-100" id="spk">
           <li class="nav-item">
             <a class="nav-link pl-3" href="pembayaran"><span class="ml-1 item-text">Pembayaran</span></a>
             <a class="nav-link pl-3" href="resume"><span class="ml-1 item-text">Resume</span></a>
