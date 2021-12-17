@@ -28,9 +28,10 @@
   </head>
   <body class="light ">
     <div class="wrapper vh-100">
-      <div class="row align-items-center h-100">
+      <div class="row align-items-center h-100" style="margin-right: 0px;margin-left: 0px">
         <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" method="POST" action="{{ route('login') }}">
           {{ csrf_field() }}
+          <img src="{{ asset('img/logo.png') }}" width="30" alt="LOGO IRM"><br>
           <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
             {{-- <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
               <g>
@@ -39,7 +40,7 @@
                 <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
               </g>
             </svg> --}}
-            <h3>PT.Indorama Transport</h3>
+            <h3>PT. Indorama Transport</h3>
           </a>
           <h1 class="h6 mb-3">Login System</h1>
           <div class="form-group">
@@ -65,7 +66,7 @@
               <input name="remember" type="checkbox" id="remember" value="remember-me"> Tetap masuk </label>
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Let me in</button>
-          <p class="mt-5 mb-3 text-muted">Indorama Transport © 2021</p>
+          <p class="mt-5 mb-3 text-muted">PT. Indorama Transport © 2021</p>
         </form>
       </div>
     </div>

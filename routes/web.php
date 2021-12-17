@@ -37,7 +37,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
         Route::get('/driver/table', 'User\reference\driverController@table')->name('driver.table');
         Route::get('/driver', 'User\reference\driverController@index')->name('driver.index');
         // Customer
+        Route::get('/customer/hapus/{id}', 'User\reference\customerController@hapus')->name('customer.hapus');
+        Route::post('/customer/ubah/{id}', 'User\reference\customerController@ubah')->name('customer.ubah');
+        Route::get('/customer/getubah/{id}', 'User\reference\customerController@getubah')->name('customer.getubah');
+        Route::post('/customer/tambah', 'User\reference\customerController@tambah')->name('customer.tambah');
+        Route::get('/customer/table', 'User\reference\customerController@table')->name('customer.table');
+        Route::get('/customer', 'User\reference\customerController@index')->name('customer.index');
         // Destination
+        Route::get('/destination/hapus/{id}', 'User\reference\destinationController@hapus')->name('destination.hapus');
+        Route::post('/destination/ubah/{id}', 'User\reference\destinationController@ubah')->name('destination.ubah');
+        Route::get('/destination/getubah/{id}', 'User\reference\destinationController@getubah')->name('destination.getubah');
+        Route::post('/destination/tambah', 'User\reference\destinationController@tambah')->name('destination.tambah');
+        Route::get('/destination/table', 'User\reference\destinationController@table')->name('destination.table');
+        Route::get('/destination', 'User\reference\destinationController@index')->name('destination.index');
 
     // Biaya Perbaikan Unit
     Route::resource('/bpu', 'User\rekap\biayaPerbaikanUnitController');

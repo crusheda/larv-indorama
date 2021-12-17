@@ -85,7 +85,6 @@
         success: function(res) {
           $("#tampil-tbody").empty();
           if(res.length == 0){
-            $("#tampil-tbody").append(`<tr><td colspan="4"><center><i class="fa fa-frown fa-fw"></i> Tidak ditemukan data.</center></td></tr>`);
           } else {
             res.forEach(item => {
               $("#tampil-tbody").append(`
@@ -163,7 +162,6 @@
         success: function(res) {
           $("#tampil-tbody").empty();
           if(res.length == 0){
-            $("#tampil-tbody").append(`<tr><td colspan="4"><center><i class="fa fa-frown fa-fw"></i> Tidak ditemukan data.</center></td></tr>`);
           } else {
             res.forEach(item => {
               $("#tampil-tbody").append(`
@@ -258,7 +256,7 @@
         dataType: 'json', // added data type
         success: function(res) {
           $("#id_edit").val(res.id);
-          $("#driver_edit").val(res.driver);
+          $("#driver_edit").val(res.nama);
         }
       }
     );

@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h2 class="page-title"><i class="fe fe-truck"></i> Tambah Armada Baru</h2>
-      <p class="text-muted">Lengkapi data armada anda.</p>
+      <h2 class="page-title"><i class="fe fe-compass"></i> Tambah Tujuan Baru</h2>
+      <p class="text-muted">Lengkapi data Tujuan anda.</p>
     </div>
     <div class="col-md-4">
       <div class="card shadow mb-4">
@@ -14,12 +14,12 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label>No. Polisi</label>
-            <input type="text" name="nopol" id="nopol_add" class="form-control" placeholder="e.g. KH 1234 XX" required autofocus>
+            <label>Lokasi Tujuan</label>
+            <input type="text" name="lokasi" id="lokasi_add" class="form-control" placeholder="e.g. Sampit" required autofocus>
           </div>
           <div class="form-group">
-            <label>Merk</label>
-            <input type="text" name="armada" id="armada_add" class="form-control" placeholder="e.g. Canter">
+            <label>Kode Tujuan</label>
+            <input type="text" name="kode" id="kode_add" class="form-control" placeholder="Optional">
           </div>
           <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
         </div>
@@ -28,7 +28,7 @@
     <div class="col-md-8">
       <div class="card shadow">
         <div class="card-header">
-          <strong class="card-title">Tabel Armada</strong>
+          <strong class="card-title">Tabel Tujuan</strong>
           <button type="button" class="btn btn-sm float-right" onclick="refreshTable()"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
         </div>
         <div class="card-body">
@@ -37,8 +37,8 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>NOPOL</th>
-                  <th>ARMADA</th>
+                  <th>LOKASI</th>
+                  <th>KODE</th>
                   <th>UPDATE</th>
                   <th></th>
                 </tr>
@@ -57,19 +57,19 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          Ubah Data Kendaraan
+          Ubah Data Tujuan
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <input type="text" name="id" id="id_edit" hidden>
         <div class="form-group">
-          <label>No. Polisi</label>
-          <input type="text" name="nopol" id="nopol_edit" value="" class="form-control" placeholder="e.g. KH 1234 XX" required autofocus>
+          <label>Lokasi Tujuan</label>
+          <input type="text" name="lokasi" id="lokasi_edit" value="" class="form-control" placeholder="e.g. Beringin" required autofocus>
         </div>
         <div class="form-group">
-          <label>Merk</label>
-          <input type="text" name="armada" id="armada_edit" value="" class="form-control" placeholder="e.g. Canter">
+          <label>Kode Tujuan</label>
+          <input type="text" name="kode" id="kode_edit" value="" class="form-control" placeholder="Optional">
         </div>
       </div>
       <div class="modal-footer">
@@ -88,7 +88,7 @@
     
     $.ajax(
       {
-        url: "./vehicle/table",
+        url: "./destination/table",
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
@@ -99,8 +99,8 @@
               $("#tampil-tbody").append(`
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
-                  <td>${item.nopol}</td>
-                  <td>${item.armada? item.armada : "" }</td>
+                  <td>${item.lokasi}</td>
+                  <td>${item.kode? item.kode : "" }</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -166,7 +166,7 @@
     $("#tampil-tbody").empty().append(`<tr><td colspan="5"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
     $.ajax(
       {
-        url: "./vehicle/table",
+        url: "./destination/table",
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
@@ -177,8 +177,8 @@
               $("#tampil-tbody").append(`
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
-                  <td>${item.nopol}</td>
-                  <td>${item.armada? item.armada : "" }</td>
+                  <td>${item.lokasi}</td>
+                  <td>${item.kode? item.kode : "" }</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -211,14 +211,14 @@
   }
 
   function tambah() {
-    var nopol = $("#nopol_add").val();
-    var armada = $("#armada_add").val();
+    var lokasi = $("#lokasi_add").val();
+    var kode = $("#kode_add").val();
     // $("#nopol_add").val("");
     // $("#armada_add").val("");
-    if (nopol == "") {
+    if (lokasi == "") {
       Swal.fire({
         title: 'Pesan Galat!',
-        text: 'Nomor Polisi wajib diisi.',
+        text: 'Lokasi Tujuan wajib diisi.',
         icon: 'error',
         showConfirmButton:false,
         showCancelButton:false,
@@ -234,11 +234,11 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: './vehicle/tambah', 
+        url: './destination/tambah', 
         dataType: 'json', 
         data: { 
-          nopol: nopol,
-          armada: armada,
+          lokasi: lokasi,
+          kode: kode,
         }, 
         success: function(res) {
           Swal.fire({
@@ -265,13 +265,13 @@
     $('#modal-ubah').modal('show');
     $.ajax(
       {
-        url: "./vehicle/getubah/"+id,
+        url: "./destination/getubah/"+id,
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
           $("#id_edit").val(res.id);
-          $("#nopol_edit").val(res.nopol);
-          $("#armada_edit").val(res.armada);
+          $("#lokasi_edit").val(res.lokasi);
+          $("#kode_edit").val(res.kode);
         }
       }
     );
@@ -279,13 +279,13 @@
 
   function ubah() {
     var id = $("#id_edit").val();
-    var nopol = $("#nopol_edit").val();
-    var armada = $("#armada_edit").val();
+    var lokasi = $("#lokasi_edit").val();
+    var kode = $("#kode_edit").val();
     
     if (nopol == "") {
       Swal.fire({
         title: 'Pesan Galat!',
-        text: 'Nomor Polisi wajib diisi.',
+        text: 'Lokasi Tujuan wajib diisi.',
         icon: 'error',
         showConfirmButton:false,
         showCancelButton:false,
@@ -301,12 +301,12 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: './vehicle/ubah/'+id, 
+        url: './destination/ubah/'+id, 
         dataType: 'json', 
         data: { 
           id: id,
-          nopol: nopol,
-          armada: armada,
+          lokasi: lokasi,
+          kode: kode,
         }, 
         success: function(res) {
           Swal.fire({
@@ -333,7 +333,7 @@
   function hapus(id) {
     Swal.fire({
       title: 'Apakah anda yakin?',
-      text: 'Untuk menghapus NOPOL Armada ID : '+id,
+      text: 'Untuk menghapus Lokasi Tujuan ID : '+id,
       icon: 'warning',
       reverseButtons: false,
       showDenyButton: false,
@@ -347,7 +347,7 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "./vehicle/hapus/"+id,
+          url: "./destination/hapus/"+id,
           type: 'GET',
           dataType: 'json', // added data type
           success: function(res) {
