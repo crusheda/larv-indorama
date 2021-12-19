@@ -47,6 +47,19 @@
 <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
 
+<script>
+  $('.select2').select2(
+  {
+    theme: 'bootstrap4',
+  });
+  $('.select2-multi').select2(
+  {
+    multiple: true,
+    theme: 'bootstrap4',
+  });
+</script>
+
+
 {{-- GOTO TOP --}}
   <a id="goTop" class="btn btn-dark text-white" style="
   display: none;

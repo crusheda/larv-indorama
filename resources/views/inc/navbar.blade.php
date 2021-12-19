@@ -32,7 +32,7 @@
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="#">Profile</a>
         <a class="dropdown-item" href="#">Settings</a>
-        <a class="dropdown-item" href="#">Activities</a>
+        <a class="dropdown-item" href="#logout" target="_blank" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">Logout</a>
       </div>
     </li>
   </ul>
@@ -44,7 +44,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+        <h5 class="modal-title" id="defaultModalLabel">System Updates</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -101,9 +101,9 @@
           </div> <!-- / .row -->
         </div> <!-- / .list-group -->
       </div>
-      <div class="modal-footer">
+      {{-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>
@@ -122,13 +122,13 @@
             <div class="squircle bg-success justify-content-center">
               <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
             </div>
-            <p>Control area</p>
+            <p>Lorem ipsum</p>
           </div>
           <div class="col-6 text-center">
             <div class="squircle bg-primary justify-content-center">
               <i class="fe fe-activity fe-32 align-self-center text-white"></i>
             </div>
-            <p>Activity</p>
+            <p>Lorem ipsum</p>
           </div>
         </div>
         <div class="row align-items-center">
@@ -136,13 +136,13 @@
             <div class="squircle bg-primary justify-content-center">
               <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
             </div>
-            <p>Droplet</p>
+            <p>Lorem ipsum</p>
           </div>
           <div class="col-6 text-center">
             <div class="squircle bg-primary justify-content-center">
               <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
             </div>
-            <p>Upload</p>
+            <p>Lorem ipsum</p>
           </div>
         </div>
         <div class="row align-items-center">
@@ -150,13 +150,13 @@
             <div class="squircle bg-primary justify-content-center">
               <i class="fe fe-users fe-32 align-self-center text-white"></i>
             </div>
-            <p>Users</p>
+            <p>Lorem ipsum</p>
           </div>
           <div class="col-6 text-center">
             <div class="squircle bg-primary justify-content-center">
               <i class="fe fe-settings fe-32 align-self-center text-white"></i>
             </div>
-            <p>Settings</p>
+            <p>Lorem ipsum</p>
           </div>
         </div>
       </div>

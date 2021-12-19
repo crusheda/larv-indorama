@@ -15,6 +15,7 @@ class CreateTableVehicle extends Migration
     {
         Schema::create('vehicle', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('id_driver')->nullable();
             $table->string('nopol')->nullable();
             $table->string('armada')->nullable();
             $table->timestamps();

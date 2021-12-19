@@ -39,6 +39,9 @@ class driverController extends Controller
 
         $data = new driver;
         $data->nama = $request->driver;
+        $data->alamat = $request->alamat;
+        $data->hp = $request->hp;
+        $data->lahir = $request->lahir;
         $data->save();
 
         return response()->json($tgl, 200);
@@ -51,6 +54,9 @@ class driverController extends Controller
         $data = [
             'id' => $id,
             'nama' => $show->nama,
+            'alamat' => $show->alamat,
+            'hp' => $show->hp,
+            'lahir' => $show->lahir,
         ];
 
         return response()->json($data, 200);
@@ -62,6 +68,9 @@ class driverController extends Controller
 
         $data = driver::find($request->id);
         $data->nama = $request->driver;
+        $data->alamat = $request->alamat;
+        $data->hp = $request->hp;
+        $data->lahir = $request->lahir;
         $data->save();
         
         return response()->json($tgl, 200);

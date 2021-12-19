@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class pb extends Model
 {
-    protected $table = 'pemakaian_ban';
+    protected $table = 'pb';
     public $timestamps = true;
     use SoftDeletes;
 }

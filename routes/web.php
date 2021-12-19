@@ -8,6 +8,7 @@ Auth::routes(['register' => false]);
 Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
 Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
 
+// ROLE ADMIN ---------------
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('permissions', 'Admin\PermissionsController');
@@ -18,8 +19,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('users_mass_destroy', 'Admin\UsersController@massDestroy')->name('users.mass_destroy');
 });
 
+// ROLE USER ---------------
 Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/home', 'User\dashboardController@index')->name('index'); // Dashboard
+
+    // HELP DESK
+    Route::get('/faqs', function () {
+        return view('pages.helpdesk.help');
+    });
 
     // Reference
         // Vehicle
@@ -51,13 +58,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
         Route::get('/destination/table', 'User\reference\destinationController@table')->name('destination.table');
         Route::get('/destination', 'User\reference\destinationController@index')->name('destination.index');
 
-    // Biaya Perbaikan Unit
-    Route::resource('/bpu', 'User\rekap\biayaPerbaikanUnitController');
-    Route::resource('/pb', 'User\rekap\pemakaianBanController');
-    Route::resource('/pu', 'User\rekap\pendapatanUnitController');
-    Route::resource('/bbm', 'User\rekap\pengeluaranBBMController');
-    Route::resource('/pembayaran', 'User\rekap\pembayaranController');
-    Route::resource('/resume', 'User\rekap\resumeSPKController');
+    // Daily
+        // Biaya Perbaikan Unit
+        Route::get('/bpu/hapus/{id}', 'User\rekap\bpuController@hapus')->name('bpu.hapus');
+        Route::post('/bpu/ubah/{id}', 'User\rekap\bpuController@ubah')->name('bpu.ubah');
+        Route::get('/bpu/getubah/{id}', 'User\rekap\bpuController@getubah')->name('bpu.getubah');
+        Route::post('/bpu/tambah', 'User\rekap\bpuController@tambah')->name('bpu.tambah');
+        Route::get('/bpu/table', 'User\rekap\bpuController@table')->name('bpu.table');
+        Route::get('/bpu', 'User\rekap\bpuController@index')->name('bpu.index');
+        // Pemakaian Ban
 });
 
 // Route::get('/', function () {

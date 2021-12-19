@@ -140,7 +140,7 @@
                       pdf: 'Jadikan PDF',
                   }
               },
-              order: [[ 3, "desc" ]],
+              order: [[ 2, "desc" ]],
               pageLength: 10
             }
           );

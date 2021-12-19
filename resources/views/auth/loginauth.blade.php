@@ -13,11 +13,12 @@
     <meta name="author" content="Yussuf Faisal, S.Kom">
     <meta name="url" content="#">
     <link rel="icon" href="{{ asset('img/logo.png') }}">
-    <title>Login - PT.Indorama Transport</title>
+    <title>PT.Indorama Transport</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="css/simplebar.css">
     <!-- Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> {{-- ICON --}}
     <!-- Icons CSS -->
     <link rel="stylesheet" href="css/feather.css">
     <!-- Date Range Picker CSS -->
@@ -32,7 +33,7 @@
         <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" method="POST" action="{{ route('login') }}">
           {{ csrf_field() }}
           <img src="{{ asset('img/logo.png') }}" width="30" alt="LOGO IRM"><br>
-          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" style="margin-bottom: -5px">
             {{-- <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
               <g>
                 <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
@@ -41,8 +42,9 @@
               </g>
             </svg> --}}
             <h3>PT. Indorama Transport</h3>
-          </a>
-          <h1 class="h6 mb-3">Login System</h1>
+          </a><br>
+          <a>by PT. INDORAMA ARTHA NIAGA</a><hr>
+          {{-- <h1 class="h6 mb-3">Login System</h1> --}}
           <div class="form-group">
             <label for="inputEmail" class="sr-only">Email address</label>
             <input name="email" type="email" id="inputEmail" class="form-control form-control-lg {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" value="{{ old('email', null) }}" required autofocus>
@@ -53,8 +55,13 @@
             @endif
           </div>
           <div class="form-group">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password" type="password" id="inputPassword" class="form-control form-control-lg{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" required>
+            <div class="input-group mb-3">
+              <label for="inputPassword" class="sr-only">Password</label>
+              <input name="password" type="password" id="inputPassword" class="form-control form-control-lg{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" required>
+              <div class="input-group-append">
+                <button class="btn btn-info" style="opacity: 50%" type="button" id="button-addon2" onclick="showPassword()"><i id="icon-eye" class="fa fa-eye"></i></button>
+              </div>
+            </div>
             @if($errors->has('password'))
               <div class="invalid-feedback">
                   {{ $errors->first('password') }}
@@ -66,7 +73,7 @@
               <input name="remember" type="checkbox" id="remember" value="remember-me"> Tetap masuk </label>
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Let me in</button>
-          <p class="mt-5 mb-3 text-muted">PT. Indorama Transport © 2021</p>
+          <p class="mt-4 mb-3 text-muted">PT. Indorama Transport © 2021</p>
         </form>
       </div>
     </div>
@@ -91,6 +98,17 @@
       }
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
+    </script>
+    <script>
+      function showPassword() {
+        $("#button-addon2").find("i").toggleClass("fa-eye fa-eye-slash");
+        var x = document.getElementById("inputPassword");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
     </script>
   </body>
 </html>

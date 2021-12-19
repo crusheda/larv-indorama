@@ -14,8 +14,20 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label>Nama Lengkap</label>
-            <input type="text" name="nama" id="driver_add" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
+            <label>Nama Lengkap <a class="text-danger">*</a></label>
+            <input type="text" id="driver_add" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
+          </div>
+          <div class="form-group mb-3">
+            <label for="example-textarea">Alamat</label>
+            <textarea class="form-control" id="alamat_add" rows="4"></textarea>
+          </div>
+          <div class="form-group mb-3">
+            <label>No. HP</label>
+            <input type="number" id="hp_add" class="form-control" placeholder="e.g. 628xxxxx">
+          </div>
+          <div class="form-group mb-3">
+            <label>Tgl Lahir</label>
+            <input type="date" id="lahir_add" class="form-control">
           </div>
           <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
         </div>
@@ -34,11 +46,14 @@
                 <tr>
                   <th>ID</th>
                   <th>NAMA</th>
+                  <th>ALAMAT</th>
+                  <th>HP</th>
+                  <th>TGL LAHIR</th>
                   <th>UPDATE</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody id="tampil-tbody"><tr><td colspan="4"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
+              <tbody id="tampil-tbody"><tr><td colspan="7"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -59,8 +74,20 @@
       <div class="modal-body">
         <input type="text" name="id" id="id_edit" hidden>
         <div class="form-group">
-          <label>Nama Lengkap</label>
-          <input type="text" name="nama" id="driver_edit" value="" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
+          <label>Nama Lengkap <a class="text-danger">*</a></label>
+          <input type="text" id="driver_edit" value="" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
+        </div>
+        <div class="form-group mb-3">
+          <label for="example-textarea">Alamat</label>
+          <textarea class="form-control" id="alamat_edit" rows="4"></textarea>
+        </div>
+        <div class="form-group mb-3">
+          <label>No. HP</label>
+          <input type="number" id="hp_edit" class="form-control" placeholder="e.g. 628xxxxx">
+        </div>
+        <div class="form-group mb-3">
+          <label>Tgl Lahir</label>
+          <input type="date" id="lahir_edit" class="form-control">
         </div>
       </div>
       <div class="modal-footer">
@@ -91,6 +118,9 @@
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
                   <td>${item.nama}</td>
+                  <td>${item.alamat?item.alamat:''}</td>
+                  <td>${item.hp?item.hp:''}</td>
+                  <td>${item.lahir?item.lahir:''}</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -140,7 +170,7 @@
                       pdf: 'Jadikan PDF',
                   }
               },
-              order: [[ 3, "desc" ]],
+              order: [[ 5, "desc" ]],
               pageLength: 10
             }
           );
@@ -153,7 +183,7 @@
 <script>
   //function
   function refreshTable() {
-    $("#tampil-tbody").empty().append(`<tr><td colspan="4"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
+    $("#tampil-tbody").empty().append(`<tr><td colspan="7"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
     $.ajax(
       {
         url: "./driver/table",
@@ -168,6 +198,9 @@
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
                   <td>${item.nama}</td>
+                  <td>${item.alamat?item.alamat:''}</td>
+                  <td>${item.hp?item.hp:''}</td>
+                  <td>${item.lahir?item.lahir:''}</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -201,6 +234,9 @@
 
   function tambah() {
     var driver = $("#driver_add").val();
+    var alamat = $("#alamat_add").val();
+    var hp = $("#hp_add").val();
+    var lahir = $("#lahir_add").val();
     
     if (driver == "") {
       Swal.fire({
@@ -225,6 +261,9 @@
         dataType: 'json', 
         data: { 
           driver: driver,
+          alamat: alamat,
+          hp: hp,
+          lahir: lahir,
         }, 
         success: function(res) {
           Swal.fire({
@@ -257,6 +296,9 @@
         success: function(res) {
           $("#id_edit").val(res.id);
           $("#driver_edit").val(res.nama);
+          $("#alamat_edit").val(res.alamat);
+          $("#hp_edit").val(res.hp);
+          $("#lahir_edit").val(res.lahir);
         }
       }
     );
@@ -265,6 +307,9 @@
   function ubah() {
     var id = $("#id_edit").val();
     var driver = $("#driver_edit").val();
+    var alamat = $("#alamat_edit").val();
+    var hp = $("#hp_edit").val();
+    var lahir = $("#lahir_edit").val();
     
     if (driver == "") {
       Swal.fire({
@@ -290,6 +335,9 @@
         data: { 
           id: id,
           driver: driver,
+          alamat: alamat,
+          hp: hp,
+          lahir: lahir,
         }, 
         success: function(res) {
           Swal.fire({

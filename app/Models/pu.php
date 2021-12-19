@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class pu extends Model
 {
-    protected $table = 'pendapatan_unit';
+    protected $table = 'pu';
     public $timestamps = true;
     use SoftDeletes;
 }

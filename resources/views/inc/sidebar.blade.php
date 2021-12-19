@@ -50,8 +50,8 @@
         </a>
         <ul class="collapse list-unstyled pl-4 w-100" id="warehouse">
           <li class="nav-item">
-            <a class="nav-link pl-3" href="vehicle"><span class="ml-1 item-text">Vehicle</span></a>
             <a class="nav-link pl-3" href="driver"><span class="ml-1 item-text">Driver</span></a>
+            <a class="nav-link pl-3" href="vehicle"><span class="ml-1 item-text">Vehicle</span></a>
           </li>
         </ul>
       </li>
@@ -115,6 +115,17 @@
         </a>
       </li>
     </ul>
+    {{-- <p class="text-muted nav-heading mt-4 mb-1">
+      <span>Help Desk</span>
+    </p>
+    <ul class="navbar-nav flex-fill w-100 mb-2">
+      <li class="nav-item w-100">
+        <a class="nav-link" href="faqs">
+          <i class="fa fa-question fe-16"></i>
+          <span class="ml-3 item-text">FAQ's</span>
+        </a>
+      </li>
+    </ul> --}}
     <div class="btn-box w-100 mt-4 mb-1">
       <a target="_blank" class="btn mb-2 btn-primary btn-lg btn-block text-white" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
         <i class="fe fe-log-out fe-12 mx-2"></i><span class="small">Logout</span>
