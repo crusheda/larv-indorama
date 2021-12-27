@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h2 class="page-title"><i class="fe fe-truck"></i> Tambah Armada Baru</h2>
-      <p class="text-muted">Lengkapi data armada anda.</p>
+      <h2 class="page-title"><i class="fe fe-truck"></i> Tambah Unit Armada Baru</h2>
+      <p class="text-muted">Lengkapi data unit armada anda.</p>
     </div>
     <div class="col-md-4">
       <div class="card shadow mb-4">
@@ -24,11 +24,22 @@
           </div>
           <div class="form-group">
             <label>No. Polisi <a class="text-danger">*</a></label>
-            <input type="text" id="nopol_add" class="form-control" placeholder="e.g. KH 1234 XX" required autofocus>
+            <input type="text" id="nopol_add" class="form-control" placeholder="e.g. KH 1234 XX" required>
           </div>
           <div class="form-group">
             <label>Merk</label>
             <input type="text" name="armada" id="armada_add" class="form-control" placeholder="e.g. Canter">
+          </div>
+          <div class="form-group">
+            <label>Jenis</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="jenis_add" id="jenis1" value="1" checked>
+              <label class="form-check-label" for="jenis1">IRM</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="jenis_add" id="jenis2" value="2">
+              <label class="form-check-label" for="jenis2">Rental</label>
+            </div>
           </div>
           <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
         </div>
@@ -37,7 +48,7 @@
     <div class="col-md-8">
       <div class="card shadow">
         <div class="card-header">
-          <strong class="card-title">Tabel Armada</strong>
+          <strong class="card-title">Tabel Unit Armada</strong>
           <button type="button" class="btn btn-sm float-right" onclick="refreshTable()"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
         </div>
         <div class="card-body">
@@ -49,11 +60,12 @@
                   <th>DRIVER</th>
                   <th>NOPOL</th>
                   <th>ARMADA</th>
+                  <th>JENIS</th>
                   <th>UPDATE</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody id="tampil-tbody"><tr><td colspan="6"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
+              <tbody id="tampil-tbody"><tr><td colspan="7"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -84,6 +96,17 @@
         <div class="form-group">
           <label>Merk</label>
           <input type="text" name="armada" id="armada_edit" value="" class="form-control" placeholder="e.g. Canter">
+        </div>
+        <div class="form-group">
+          <label>Jenis</label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="jenis_edit" id="jenis3" value="1">
+            <label class="form-check-label" for="jenis3">IRM</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="jenis_edit" id="jenis4" value="2">
+            <label class="form-check-label" for="jenis4">Rental</label>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -116,6 +139,7 @@
                   <td>${item.nama}</td>
                   <td>${item.nopol}</td>
                   <td>${item.armada? item.armada : "" }</td>
+                  <td>${item.jenis == '1'? "IRM" : "Rental"}</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -165,7 +189,7 @@
                       pdf: 'Jadikan PDF',
                   }
               },
-              order: [[ 4, "desc" ]],
+              order: [[ 5, "desc" ]],
               pageLength: 10
             }
           );
@@ -178,7 +202,7 @@
 <script>
   //function
   function refreshTable() {
-    $("#tampil-tbody").empty().append(`<tr><td colspan="6"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
+    $("#tampil-tbody").empty().append(`<tr><td colspan="7"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
     $.ajax(
       {
         url: "./vehicle/table",
@@ -195,6 +219,7 @@
                   <td>${item.nama}</td>
                   <td>${item.nopol}</td>
                   <td>${item.armada? item.armada : "" }</td>
+                  <td>${item.jenis == '1'? "IRM" : "Rental"}</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -227,10 +252,10 @@
   }
 
   function tambah() {
-    // var driver = $("#driver_add").val();
     var driver = document.getElementById("driver_add").value;
     var nopol = $("#nopol_add").val();
     var armada = $("#armada_add").val();
+    var jenis = $('input[type="radio"][name="jenis_add"]:checked').val();
     // $("#nopol_add").val("");
     // $("#armada_add").val("");
     if (nopol == "" || driver == "Pilih") {
@@ -258,6 +283,7 @@
           driver: driver,
           nopol: nopol,
           armada: armada,
+          jenis: jenis,
         }, 
         success: function(res) {
           Swal.fire({
@@ -291,6 +317,13 @@
           $("#driver_edit").find('option').remove();
           $("#id_edit").val(res.id);
           $("#nopol_edit").val(res.nopol);
+          console.log(res.jenis)
+          if (res.jenis == 1) {
+            $("#jenis3").prop('checked', true)
+          } else {
+            $("#jenis4").prop('checked', true)
+            
+          }
           $("#armada_edit").val(res.armada);
           res.driver.forEach(item => {
               $("#driver_edit").append(`
@@ -308,6 +341,7 @@
     var driver = document.getElementById("driver_edit").value;
     var nopol = $("#nopol_edit").val();
     var armada = $("#armada_edit").val();
+    var jenis = $('input[type="radio"][name="jenis_edit"]:checked').val();
     
     if (nopol == "" || driver == "Pilih") {
       Swal.fire({
@@ -335,6 +369,7 @@
           driver: driver,
           nopol: nopol,
           armada: armada,
+          jenis: jenis,
         }, 
         success: function(res) {
           Swal.fire({

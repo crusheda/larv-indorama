@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h2 class="page-title"><i class="fa fa-wrench"></i> Tambah Data Perbaikan Unit Baru</h2>
-      <p class="text-muted">Lengkapi data perbaikan unit anda.</p>
+      <h2 class="page-title"><i class="fe fe-life-buoy"></i> Tambah Data Pemakaian Ban Baru</h2>
+      <p class="text-muted">Lengkapi data pemakaian ban anda.</p>
     </div>
     <div class="col-md-4">
       <div class="card shadow mb-4">
@@ -13,10 +13,19 @@
           <strong class="card-title">Tambah data baru</strong>
         </div>
         <div class="card-body">
-          <div class="form-group">
-            <label>Tanggal <a class="text-danger">*</a></label>
-            <input type="date" id="tgl_add" class="form-control" value="<?php echo strftime('%Y-%m-%d', strtotime($list['now'])); ?>">
-            <span class="help-block"><small>Default tanggal dipilih <strong>Hari ini</strong></small></span>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Kode Unit <a class="text-danger">*</a></label>
+                <input type="number" id="kode_add" class="form-control" maxlength="2" max="30" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group mb-3">
+                <label for="example-month">Bulan <a class="text-danger">*</a></label>
+                <input class="form-control" id="bulan_add" type="month">
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="simple-select2">No. Polisi & Driver <a class="text-danger">*</a></label>
@@ -27,17 +36,34 @@
               @endforeach
             </select>
           </div>
+          <div class="form-group">
+            <label for="simple-select2">Kode Ban <a class="text-danger">*</a></label>
+            <select class="form-control select2" id="ban_add">
+              <option value="Pilih" hidden>Pilih</option>
+              @foreach($list['ban'] as $key => $item)
+                  <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->kode }}</option>
+              @endforeach
+            </select>
+          </div>
           <div class="form-group mb-3">
-            <label for="example-textarea">Keterangan <a class="text-danger">*</a></label>
-            <textarea class="form-control" id="ket_add" rows="4" placeholder="e.g. Ganti Oli, Cek angin, dan Tambal Ban"></textarea>
+            <label for="example-textarea">Keterangan (Optional)</label>
+            <textarea class="form-control" id="ket_add" rows="4" placeholder="e.g. Ganti 2 Ban Depan"></textarea>
           </div>
           <div class="form-group">
-              <label>Jumlah <a class="text-danger">*</a></label>
-              <input type="text" id="jumlah_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
+              <label>Harga Ban <a class="text-danger">*</a></label>
+              <input type="text" id="harga_add" maxlength="17" class="form-control" placeholder="Rp. -" disabled>
+          </div>
+          <div class="form-group">
+              <label>Bayar Ban</label>
+              <input type="text" id="bayar_add" maxlength="17" class="form-control" placeholder="e.g. 210xxx">
           </div>
           <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
         </div>
       </div> <!-- / .card -->
+      {{-- <div class="card shadow mb-4">
+        <div class="card-body">
+        </div>
+      </div> --}}
     </div>
     <div class="col-md-8">
       <div class="card shadow">
@@ -52,17 +78,20 @@
             <table class="table datatables table-striped" id="tableku">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>TGL</th>
-                  <th>VEHICLE</th>
-                  <th>DRIVER</th>
-                  <th>KET</th>
-                  <th>JML</th>
-                  <th>UPDATE</th>
                   <th></th>
+                  <th>ID</th>
+                  <th>BULAN</th>
+                  <th>KODE UNIT</th>
+                  <th>NOPOL</th>
+                  <th>SOPIR</th>
+                  <th>BAN</th>
+                  <th>KETERANGAN</th>
+                  <th>HARGA</th>
+                  <th>BAYAR</th>
+                  <th>UPDATE</th>
                 </tr>
               </thead>
-              <tbody id="tampil-tbody"><tr><td colspan="8"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
+              <tbody id="tampil-tbody"><tr><td colspan="11"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -82,27 +111,33 @@
       </div>
       <div class="modal-body">
         <input type="text" name="id" id="id_edit" hidden>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label>Tanggal <a class="text-danger">*</a></label>
-              <input type="date" id="tgl_edit" class="form-control" value="<?php echo strftime('%Y-%m-%d', strtotime($list['now'])); ?>">
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="simple-select2">No. Polisi & Driver <a class="text-danger">*</a></label>
-              <select class="form-control select2" id="vehicle_edit"></select>
-            </div>
-          </div>
-        </div>
         <div class="form-group mb-3">
-          <label for="example-textarea">Keterangan</label>
-          <textarea class="form-control" id="ket_edit" rows="4"></textarea>
+          <label for="example-month">Bulan <a class="text-danger">*</a></label>
+          <input class="form-control" id="bulan_edit" type="month">
         </div>
         <div class="form-group">
-            <label>Jumlah :</label>
-            <input type="text" id="jumlah_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
+          <label>Kode Unit <a class="text-danger">*</a></label>
+          <input type="number" id="kode_edit" class="form-control" placeholder="e.g. 01" maxlength="2" max="30" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+        </div>
+        <div class="form-group">
+          <label for="simple-select2">No. Polisi & Driver <a class="text-danger">*</a></label>
+          <select class="form-control select2" id="vehicle_edit"></select>
+        </div>
+        <div class="form-group">
+          <label for="simple-select2">Kode Ban <a class="text-danger">*</a></label>
+          <select class="form-control select2" id="ban_edit"></select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="example-textarea">Keterangan (Optional)</label>
+          <textarea class="form-control" id="ket_edit" rows="4" placeholder="e.g. Ganti 2 Ban Belakang"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Harga Ban <a class="text-danger">*</a></label>
+            <input type="text" id="harga_edit" maxlength="17" class="form-control" placeholder="e.g. 170xxx" required>
+        </div>
+        <div class="form-group">
+            <label>Bayar Ban</label>
+            <input type="text" id="bayar_edit" maxlength="17" class="form-control" placeholder="e.g. 210xxx" required>
         </div>
       </div>
       <div class="modal-footer">
@@ -124,9 +159,36 @@
           $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
       })
     }
+    $('#ban_add').change(function() { 
+      // console.log(this.value);
+      
+        if (this.value == 'Pilih') {
+          $("#harga_add").val("");
+        } else {
+          $.ajax({
+            url: "./pb/getban/"+this.value,
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function(res) {
+              var harga = res.harga.toLocaleString().replace(/[,]/g,'.')
+              $("#harga_add").val("Rp. "+harga);
+              // document.getElementById('harga_add').value = formatRupiah(res.harga, 'Rp. ');
+              // rupiah_harga.value = formatRupiah(this.value, 'Rp. ');
+
+              // if (rupiah_harga) {
+              //   rupiah_harga.addEventListener('keyup', function(e){
+              //         // tambahkan 'Rp.' pada saat form di ketik
+              //         // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+              //         rupiah_harga.value = formatRupiah(this.value, 'Rp. ');
+              //     });
+              // }
+            }
+          });
+        }
+      });
     $.ajax(
       {
-        url: "./bpu/table",
+        url: "./pb/table",
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
@@ -136,24 +198,100 @@
             res.forEach(item => {
               $("#tampil-tbody").append(`
                 <tr id="data${item.id}">
-                  <td>${item.id}</td>
-                  <td>${item.tgl}</td>
-                  <td>${item.nopol}</td>
-                  <td>${item.nama}</td>
-                  <td>${item.ket}</td>
-                  <td>Rp. ${item.jml.toLocaleString().replace(/[,]/g,'.')}</td>
-                  <td>${item.updated_at}</td>
                   <td>
                     <center>
                       <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="aksi${item.id}">
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>
+                  <td>${item.id}</td>
+                  <td>${item.bulan}</td>
+                  <td>${item.kode_unit}</td>
+                  <td>${item.nopol}</td>
+                  <td>${item.driver}</td>
+                  <td>${item.ban}</td>
+                  <td>${item.ket}</td>
+                  <td>Rp. ${item.harga.toLocaleString().replace(/[,]/g,'.')}</td>
+                  <td>Rp. ${item.bayar.toLocaleString().replace(/[,]/g,'.')}</td>
+                  <td>${item.updated_at}</td>
+                </tr>
+              `);
+            });
+          }
+          $('#tableku').DataTable(
+            {
+              paging: true,
+              searching: true,
+              dom: 'Bfrtip',
+              buttons: [
+                  'excel', 'pdf','colvis',
+              ],
+              'columnDefs': [
+                  { targets: 1, visible: false },
+                  // { targets: 3, visible: false },
+                  { targets: 7, visible: false },
+                  // { targets: 8, visible: false },
+              ],
+              language: {
+                  buttons: {
+                      colvis: 'Sembunyikan Kolom',
+                      excel: 'Jadikan Excell',
+                      pdf: 'Jadikan PDF',
+                  }
+              },
+              order: [[ 9, "desc" ]],
+              pageLength: 10
+            }
+          );
+        }
+      }
+    );
+  });
+</script>
+
+<script>
+  //function
+  function refreshTable() {
+    $("#tampil-tbody").empty().append(`<tr><td colspan="8"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
+    $.ajax(
+      {
+        url: "./pb/table",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+          $("#tampil-tbody").empty();
+          $('#tableku').DataTable().clear().destroy();
+          if(res.length == 0){
+          } else {
+            res.forEach(item => {
+              $("#tampil-tbody").append(`
+                <tr id="data${item.id}">
+                  <td>
+                    <center>
+                      <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="aksi${item.id}">
+                        <span class="text-muted sr-only">Aksi</span>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                      </div>
+                    </center>
+                  </td>
+                  <td>${item.id}</td>
+                  <td>${item.bulan}</td>
+                  <td>${item.kode_unit}</td>
+                  <td>${item.nopol}</td>
+                  <td>${item.driver}</td>
+                  <td>${item.ban}</td>
+                  <td>${item.ket}</td>
+                  <td>Rp. ${item.harga.toLocaleString().replace(/[,]/g,'.')}</td>
+                  <td>Rp. ${item.bayar.toLocaleString().replace(/[,]/g,'.')}</td>
+                  <td>${item.updated_at}</td>
                 </tr>
               `);
             });
@@ -176,9 +314,9 @@
                   'excel', 'pdf','colvis',
               ],
               'columnDefs': [
-                  // { targets: 0, visible: false },
+                  { targets: 1, visible: false },
                   // { targets: 3, visible: false },
-                  // { targets: 6, visible: false },
+                  { targets: 7, visible: false },
                   // { targets: 8, visible: false },
               ],
               language: {
@@ -188,79 +326,26 @@
                       pdf: 'Jadikan PDF',
                   }
               },
-              order: [[ 6, "desc" ]],
+              order: [[ 9, "desc" ]],
               pageLength: 10
             }
           );
-        }
-      }
-    );
-  });
-</script>
-
-<script>
-  //function
-  function refreshTable() {
-    $("#tampil-tbody").empty().append(`<tr><td colspan="8"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
-    $.ajax(
-      {
-        url: "./bpu/table",
-        type: 'GET',
-        dataType: 'json', // added data type
-        success: function(res) {
-          $("#tampil-tbody").empty();
-          if(res.length == 0){
-          } else {
-            res.forEach(item => {
-              $("#tampil-tbody").append(`
-                <tr id="data${item.id}">
-                  <td>${item.id}</td>
-                  <td>${item.tgl}</td>
-                  <td>${item.nopol}</td>
-                  <td>${item.nama}</td>
-                  <td>${item.ket}</td>
-                  <td>${item.jml.toLocaleString().replace(/[,]/g,'.')}</td>
-                  <td>${item.updated_at}</td>
-                  <td>
-                    <center>
-                      <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="text-muted sr-only">Aksi</span>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
-                      </div>
-                    </center>
-                  </td>
-                </tr>
-              `);
-            });
-              // content = "<tr id='data"+ item.id +"'><td>" + item.id + "</td><td>" 
-              //   + item.nopol + "</td><td>" 
-              //   + item.armada + "</td><td>"
-              //   + item.updated_at + "</td>"
-              //   + "<td><center><div class='btn-group' role='group'>"
-              //   + "<button class='btn btn-sm dropdown-toggle more-horizontal' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span class='text-muted sr-only'>Aksi</span></button>"
-              //   + "<div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='./perencanaan/"+item.id+"'>Ubah</a>"
-              //   + "<a class='dropdown-item' onclick='hapus("+item.id+")' >Hapus</a></div></div></center></td></tr>";
-              // $('#tampil-tbody').append(content);
-          }
-          $('#tableku').DataTable();
+          // $('#tableku').DataTable();
         }
       }
     );
   }
   
   function tambah() {
-    // var driver = $("#driver_add").val();
-    var tgl = $("#tgl_add").val();
+    var bulan   = $("#bulan_add").val();
+    var kode    = $("#kode_add").val();
     var vehicle = document.getElementById("vehicle_add").value;
-    var ket = $("#ket_add").val();
-    var jml = $("#jumlah_add").val();
-    console.log(ket);
-    // $("#nopol_add").val("");
-    // $("#armada_add").val("");
-    if (tgl == "" || vehicle == "Pilih" || ket == "" || jml == "") {
+    var ban     = document.getElementById("ban_add").value;
+    var ket     = $("#ket_add").val();
+    var harga   = $("#harga_add").val();
+    var bayar   = $("#bayar_add").val();
+    // console.log(ket);
+    if (bulan == "" || kode == "" || vehicle == "Pilih" || ban == "Pilih" || harga == "") {
       Swal.fire({
         title: 'Pesan Galat!',
         text: 'Mohon lengkapi semua data terlebih dahulu',
@@ -279,13 +364,16 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: './bpu/tambah', 
+        url: './pb/tambah', 
         dataType: 'json', 
         data: { 
-          tgl: tgl,
+          bulan: bulan,
+          kode: kode,
           vehicle: vehicle,
+          ban: ban,
           ket: ket,
-          jml: jml,
+          harga: harga,
+          bayar: bayar,
         }, 
         success: function(res) {
           Swal.fire({
@@ -312,19 +400,36 @@
     $('#modal-ubah').modal('show');
     $.ajax(
       {
-        url: "./bpu/getubah/"+id,
+        url: "./pb/getubah/"+id,
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
+          
+    // var bulan   = $("#bulan_add").val();
+    // var kode    = $("#kode_add").val();
+    // var vehicle = document.getElementById("vehicle_add").value;
+    // var ban     = document.getElementById("ban_add").value;
+    // var ket     = $("#ket_add").val();
+    // var harga   = $("#harga_add").val();
+    // var bayar   = $("#bayar_add").val();
+    
           $("#vehicle_edit").find('option').remove();
+          $("#ban_edit").find('option').remove();
           $("#id_edit").val(res.id);
-          $("#tgl_edit").val(res.tgl);
-          $("#ket_edit").val(res.ket);
+          $("#bulan_edit").val(res.bulan);
+          $("#kode_edit").val(res.show.kode_unit.replace(/[IRM]/g,''));
+          $("#ket_edit").val(res.show.ket);
           // document.getElementById("ket_edit").innerHtml = res.ket;
-          $("#jumlah_edit").val("Rp. "+(res.jml).toLocaleString().replace(/[,]/g,'.'));
+          $("#harga_edit").val("Rp. "+(res.show.harga).toLocaleString().replace(/[,]/g,'.'));
+          $("#bayar_edit").val("Rp. "+(res.show.bayar).toLocaleString().replace(/[,]/g,'.'));
           res.vehicle.forEach(item => {
               $("#vehicle_edit").append(`
-                  <option value="${item.id}" ${item.id == res.id_vehicle? "selected":""}>${item.nopol} (${item.nama})</option>
+                  <option value="${item.id}" ${item.id == res.show.id_vehicle? "selected":""}>${item.nopol} (${item.nama})</option>
+              `);
+          });
+          res.ban.forEach(item => {
+              $("#ban_edit").append(`
+                  <option value="${item.id}" ${item.id == res.show.id_ban? "selected":""}>${item.kode}</option>
               `);
           });
         }
@@ -334,11 +439,14 @@
 
   function ubah() {
     var id = $("#id_edit").val();
-    var tgl = $("#tgl_edit").val();
+    var bulan   = $("#bulan_edit").val();
+    var kode    = $("#kode_edit").val();
     var vehicle = document.getElementById("vehicle_edit").value;
-    var ket = $("#ket_edit").val();
-    var jml = $("#jumlah_edit").val();
-    if (tgl == "" || vehicle == "Pilih" || ket == "" || jml == "") {
+    var ban     = document.getElementById("ban_edit").value;
+    var ket     = $("#ket_edit").val();
+    var harga   = $("#harga_edit").val();
+    var bayar   = $("#bayar_edit").val();
+    if (bulan == "" || kode == "" || vehicle == "Pilih" || ban == "Pilih" || harga == "") {
       Swal.fire({
         title: 'Pesan Galat!',
         text: 'Mohon lengkapi semua data terlebih dahulu',
@@ -357,14 +465,17 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: './bpu/ubah/'+id, 
+        url: './pb/ubah/'+id, 
         dataType: 'json', 
         data: { 
           id: id,
-          tgl: tgl,
+          bulan: bulan,
+          kode: kode,
           vehicle: vehicle,
+          ban: ban,
           ket: ket,
-          jml: jml,
+          harga: harga,
+          bayar: bayar,
         }, 
         success: function(res) {
           Swal.fire({
@@ -391,7 +502,7 @@
   function hapus(id) {
     Swal.fire({
       title: 'Apakah anda yakin?',
-      text: 'Untuk menghapus data Perbaikan Unit ID : '+id,
+      text: 'Untuk menghapus data Pemakaian Ban ID : '+id,
       icon: 'warning',
       reverseButtons: false,
       showDenyButton: false,
@@ -405,7 +516,7 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "./bpu/hapus/"+id,
+          url: "./pb/hapus/"+id,
           type: 'GET',
           dataType: 'json', // added data type
           success: function(res) {
@@ -443,22 +554,38 @@
   }
   
   // RUPIAH TAMBAH
-  var rupiah_tambah = document.getElementById('jumlah_add');
+  var rupiah_tambah_harga = document.getElementById('harga_add');
+  var rupiah_tambah_bayar = document.getElementById('bayar_add');
   // RUPIAH EDIT
-  var rupiah_edit = document.getElementById('jumlah_edit');
+  var rupiah_edit_harga = document.getElementById('harga_edit');
+  var rupiah_edit_bayar = document.getElementById('bayar_edit');
 
-  if (rupiah_tambah) {
-      rupiah_tambah.addEventListener('keyup', function(e){
+  if (rupiah_tambah_harga) {
+      rupiah_tambah_harga.addEventListener('keyup', function(e){
           // tambahkan 'Rp.' pada saat form di ketik
           // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-          rupiah_tambah.value = formatRupiah(this.value, 'Rp. ');
+          rupiah_tambah_harga.value = formatRupiah(this.value, 'Rp. ');
       });
   }
-  if (rupiah_edit) {
-      rupiah_edit.addEventListener('keyup', function(e){
+  if (rupiah_tambah_bayar) {
+      rupiah_tambah_bayar.addEventListener('keyup', function(e){
           // tambahkan 'Rp.' pada saat form di ketik
           // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-          rupiah_edit.value = formatRupiah(this.value, 'Rp. ');
+          rupiah_tambah_bayar.value = formatRupiah(this.value, 'Rp. ');
+      });
+  }
+  if (rupiah_edit_harga) {
+      rupiah_edit_harga.addEventListener('keyup', function(e){
+          // tambahkan 'Rp.' pada saat form di ketik
+          // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+          rupiah_edit_harga.value = formatRupiah(this.value, 'Rp. ');
+      });
+  }
+  if (rupiah_edit_bayar) {
+      rupiah_edit_bayar.addEventListener('keyup', function(e){
+          // tambahkan 'Rp.' pada saat form di ketik
+          // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+          rupiah_edit_bayar.value = formatRupiah(this.value, 'Rp. ');
       });
   }
 

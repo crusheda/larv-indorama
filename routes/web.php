@@ -67,6 +67,21 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
         Route::get('/bpu/table', 'User\rekap\bpuController@table')->name('bpu.table');
         Route::get('/bpu', 'User\rekap\bpuController@index')->name('bpu.index');
         // Pemakaian Ban
+            // REF
+            Route::get('/pb/ban/hapus/{id}', 'User\rekap\refpbController@hapus')->name('ban.hapus');
+            Route::post('/pb/ban/ubah/{id}', 'User\rekap\refpbController@ubah')->name('ban.ubah');
+            Route::get('/pb/ban/getubah/{id}', 'User\rekap\refpbController@getubah')->name('ban.getubah');
+            Route::post('/pb/ban/tambah', 'User\rekap\refpbController@tambah')->name('ban.tambah');
+            Route::get('/pb/ban/table', 'User\rekap\refpbController@table')->name('ban.table');
+            Route::get('/pb/ban', 'User\rekap\refpbController@index')->name('ban.index');
+            // REKAP
+            Route::get('/pb/hapus/{id}', 'User\rekap\pbController@hapus')->name('pb.hapus');
+            Route::post('/pb/ubah/{id}', 'User\rekap\pbController@ubah')->name('pb.ubah');
+            Route::get('/pb/getban/{id}', 'User\rekap\pbController@getban')->name('pb.getban');
+            Route::get('/pb/getubah/{id}', 'User\rekap\pbController@getubah')->name('pb.getubah');
+            Route::post('/pb/tambah', 'User\rekap\pbController@tambah')->name('pb.tambah');
+            Route::get('/pb/table', 'User\rekap\pbController@table')->name('pb.table');
+            Route::get('/pb', 'User\rekap\pbController@index')->name('pb.index');
 });
 
 // Route::get('/', function () {

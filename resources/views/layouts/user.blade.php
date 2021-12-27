@@ -7,7 +7,7 @@
     <meta name="author" content="Yussuf Faisal, S.Kom">
     <link rel="icon" href="{{ asset('img/logo.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ Auth::user()->name }} - PT.Indorama Transport</title>
+    <title>{{ Auth::user()->name }} - Indorama Transport</title>
 
     @include('inc.css')
     @include('sweetalert::alert')
@@ -31,7 +31,5 @@
     <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
     </form>
-
-    <footer>sadsadsa</footer>
   </body>
 </html>

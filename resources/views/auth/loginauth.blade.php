@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
-    <meta name="title" content="PT.Indorama Transport"/>
+    <meta name="title" content="Indorama Transport by PT. Indorama Artha Niaga"/>
     <meta name="description" content="Perusahaan yang bergerak dalam bidang transportasi dengan menyediakan armada terbaik untuk memudahkan pelanggan dalam mengelola usaha minyak sawit.">
     <meta name="keywords" content="Indorama Transport">
     <meta name="revisit-after" content="3 days">
@@ -13,7 +13,7 @@
     <meta name="author" content="Yussuf Faisal, S.Kom">
     <meta name="url" content="#">
     <link rel="icon" href="{{ asset('img/logo.png') }}">
-    <title>PT.Indorama Transport</title>
+    <title>Indorama Transport</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="css/simplebar.css">
     <!-- Fonts CSS -->
@@ -41,7 +41,7 @@
                 <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
               </g>
             </svg> --}}
-            <h3>PT. Indorama Transport</h3>
+            <h3>Indorama Transport</h3>
           </a><br>
           <a>by PT. INDORAMA ARTHA NIAGA</a><hr>
           {{-- <h1 class="h6 mb-3">Login System</h1> --}}
@@ -73,7 +73,7 @@
               <input name="remember" type="checkbox" id="remember" value="remember-me"> Tetap masuk </label>
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Let me in</button>
-          <p class="mt-4 mb-3 text-muted">PT. Indorama Transport © 2021</p>
+          <p class="mt-4 mb-3 text-muted">Indorama Transport © 2021</p>
         </form>
       </div>
     </div>

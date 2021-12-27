@@ -40,18 +40,19 @@
       </li>
     </ul>
     <p class="text-muted nav-heading mt-4 mb-1">
-      <span>Reference</span>
+      <span>Referensi</span>
     </p>
     <ul class="navbar-nav flex-fill w-100 mb-2">
       <li class="nav-item dropdown">
         <a href="#warehouse" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-          <i class="fa fa-industry fe-16"></i>
-          <span class="ml-3 item-text">Warehouse</span>
+          <i class="fa fa-truck fe-16"></i>
+          <span class="ml-3 item-text">Data Armada</span>
         </a>
         <ul class="collapse list-unstyled pl-4 w-100" id="warehouse">
           <li class="nav-item">
-            <a class="nav-link pl-3" href="driver"><span class="ml-1 item-text">Driver</span></a>
-            <a class="nav-link pl-3" href="vehicle"><span class="ml-1 item-text">Vehicle</span></a>
+            <a class="nav-link pl-3" href="{{ route('user.driver.index') }}"><span class="ml-1 item-text">Sopir</span></a>
+            <a class="nav-link pl-3" href="{{ route('user.vehicle.index') }}"><span class="ml-1 item-text">Unit</span></a>
+            <a class="nav-link pl-3" href="{{ route('user.ban.index') }}"><span class="ml-1 item-text">Ban</span></a>
           </li>
         </ul>
       </li>
@@ -62,58 +63,58 @@
         </a>
       </li> --}}
       <li class="nav-item w-100">
-        <a class="nav-link" href="customer">
+        <a class="nav-link" href="{{ route('user.customer.index') }}">
           <i class="fa fa-handshake-o fe-16"></i>
-          <span class="ml-3 item-text">Customer</span>
+          <span class="ml-3 item-text">Data Pelanggan</span>
         </a>
       </li>
       <li class="nav-item w-100">
-        <a class="nav-link" href="destination">
+        <a class="nav-link" href="{{ route('user.destination.index') }}">
           <i class="fe fe-compass fe-16"></i>
-          <span class="ml-3 item-text">Destination</span>
+          <span class="ml-3 item-text">Data Rute</span>
         </a>
       </li>
     </ul>
     <p class="text-muted nav-heading mt-4 mb-1">
-      <span>Daily</span>
+      <span>Harian</span>
     </p>
     <ul class="navbar-nav flex-fill w-100 mb-2">
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a href="#spk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
           <i class="fa fa-legal fe-16"></i>
           <span class="ml-3 item-text">SPK CPO</span>
         </a>
         <ul class="collapse list-unstyled pl-4 w-100" id="spk">
           <li class="nav-item">
-            <a class="nav-link pl-3" href="pembayaran"><span class="ml-1 item-text">Pembayaran</span></a>
-            <a class="nav-link pl-3" href="resume"><span class="ml-1 item-text">Resume</span></a>
+            <a class="nav-link pl-3" href="{{ route('user.pembayaran.index') }}"><span class="ml-1 item-text">Pembayaran</span></a>
+            <a class="nav-link pl-3" href="{{ route('user.resume.index') }}"><span class="ml-1 item-text">Resume</span></a>
           </li>
         </ul>
-      </li>
+      </li> --}}
       <li class="nav-item w-100">
-        <a class="nav-link" href="bpu">
+        <a class="nav-link" href="{{ route('user.bpu.index') }}">
           <i class="fa fa-wrench fe-16"></i>
           <span class="ml-3 item-text">Perbaikan Unit</span>
         </a>
       </li>
       <li class="nav-item w-100">
-        <a class="nav-link" href="pb">
+        <a class="nav-link" href="{{ route('user.pb.index') }}">
           <i class="fe fe-life-buoy fe-16"></i>
           <span class="ml-3 item-text">Pemakaian Ban</span>
         </a>
       </li>
-      <li class="nav-item w-100">
-        <a class="nav-link" href="pu">
+      {{-- <li class="nav-item w-100">
+        <a class="nav-link" href="{{ route('user.pu.index') }}">
           <i class="fa fa-money fe-16"></i>
           <span class="ml-3 item-text">Pendapatan Unit</span>
         </a>
       </li>
       <li class="nav-item w-100">
-        <a class="nav-link" href="bbm">
+        <a class="nav-link" href="{{ route('user.bbm.index') }}">
           <i class="fe fe-coffee fe-16"></i>
           <span class="ml-3 item-text">BBM & Makan</span>
         </a>
-      </li>
+      </li> --}}
     </ul>
     {{-- <p class="text-muted nav-heading mt-4 mb-1">
       <span>Help Desk</span>

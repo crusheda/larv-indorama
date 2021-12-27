@@ -50,6 +50,7 @@ class vehicleController extends Controller
         $data->id_driver = $request->driver;
         $data->nopol = $request->nopol;
         $data->armada = $request->armada;
+        $data->jenis = $request->jenis;
         $data->save();
 
         return response()->json($tgl, 200);
@@ -65,6 +66,7 @@ class vehicleController extends Controller
             'id_driver' => $show->id_driver,
             'nopol' => $show->nopol,
             'armada' => $show->armada,
+            'jenis' => $show->jenis,
             'driver' => $driver,
         ];
 
@@ -79,6 +81,7 @@ class vehicleController extends Controller
         $data->id_driver = $request->driver;
         $data->nopol = $request->nopol;
         $data->armada = $request->armada;
+        $data->jenis = $request->jenis;
         $data->save();
         
         return response()->json($tgl, 200);

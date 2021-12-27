@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h2 class="page-title"><i class="fe fe-compass"></i> Tambah Tujuan Baru</h2>
-      <p class="text-muted">Lengkapi data Tujuan anda.</p>
+      <h2 class="page-title"><i class="fe fe-compass"></i> Tambah Rute Baru</h2>
+      <p class="text-muted">Lengkapi data rute anda.</p>
     </div>
     <div class="col-md-4">
       <div class="card shadow mb-4">
@@ -14,11 +14,11 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label>Lokasi Tujuan</label>
+            <label>Lokasi Rute</label>
             <input type="text" name="lokasi" id="lokasi_add" class="form-control" placeholder="e.g. Sampit" required autofocus>
           </div>
           <div class="form-group">
-            <label>Kode Tujuan</label>
+            <label>Kode Rute</label>
             <input type="text" name="kode" id="kode_add" class="form-control" placeholder="Optional">
           </div>
           <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
@@ -28,7 +28,7 @@
     <div class="col-md-8">
       <div class="card shadow">
         <div class="card-header">
-          <strong class="card-title">Tabel Tujuan</strong>
+          <strong class="card-title">Tabel Rute</strong>
           <button type="button" class="btn btn-sm float-right" onclick="refreshTable()"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
         </div>
         <div class="card-body">
@@ -57,18 +57,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          Ubah Data Tujuan
+          Ubah Data Rute
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <input type="text" name="id" id="id_edit" hidden>
         <div class="form-group">
-          <label>Lokasi Tujuan</label>
+          <label>Lokasi Rute</label>
           <input type="text" name="lokasi" id="lokasi_edit" value="" class="form-control" placeholder="e.g. Beringin" required autofocus>
         </div>
         <div class="form-group">
-          <label>Kode Tujuan</label>
+          <label>Kode Rute</label>
           <input type="text" name="kode" id="kode_edit" value="" class="form-control" placeholder="Optional">
         </div>
       </div>
@@ -218,7 +218,7 @@
     if (lokasi == "") {
       Swal.fire({
         title: 'Pesan Galat!',
-        text: 'Lokasi Tujuan wajib diisi.',
+        text: 'Lokasi Rute wajib diisi.',
         icon: 'error',
         showConfirmButton:false,
         showCancelButton:false,
@@ -285,7 +285,7 @@
     if (nopol == "") {
       Swal.fire({
         title: 'Pesan Galat!',
-        text: 'Lokasi Tujuan wajib diisi.',
+        text: 'Lokasi Rute wajib diisi.',
         icon: 'error',
         showConfirmButton:false,
         showCancelButton:false,
@@ -333,7 +333,7 @@
   function hapus(id) {
     Swal.fire({
       title: 'Apakah anda yakin?',
-      text: 'Untuk menghapus Lokasi Tujuan ID : '+id,
+      text: 'Untuk menghapus Lokasi Rute ID : '+id,
       icon: 'warning',
       reverseButtons: false,
       showDenyButton: false,

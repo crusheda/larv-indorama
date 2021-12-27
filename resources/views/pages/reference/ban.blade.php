@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h2 class="page-title"><i class="fa fa-id-card"></i> Tambah Sopir Baru</h2>
-      <p class="text-muted">Lengkapi data sopir anda.</p>
+      <h2 class="page-title"><i class="fe fe-disc"></i> Tambah Ban Baru</h2>
+      <p class="text-muted">Lengkapi data ban anda.</p>
     </div>
     <div class="col-md-4">
       <div class="card shadow mb-4">
@@ -14,20 +14,16 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label>Nama Lengkap <a class="text-danger">*</a></label>
-            <input type="text" id="driver_add" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
+            <label>Kode Ban <a class="text-danger">*</a></label>
+            <input type="text" id="kode_add" class="form-control" placeholder="e.g. TIRON HS314 7,50 SHD" required autofocus>
           </div>
-          <div class="form-group mb-3">
-            <label for="example-textarea">Alamat</label>
-            <textarea class="form-control" id="alamat_add" rows="4"></textarea>
+          <div class="form-group">
+            <label>Keterangan</label>
+            <textarea class="form-control" id="ket_add" rows="4" placeholder="Optional"></textarea>
           </div>
-          <div class="form-group mb-3">
-            <label>No. HP</label>
-            <input type="number" id="hp_add" class="form-control" placeholder="e.g. 628xxxxx">
-          </div>
-          <div class="form-group mb-3">
-            <label>Tgl Lahir</label>
-            <input type="date" id="lahir_add" class="form-control">
+          <div class="form-group">
+              <label>Harga <a class="text-danger">*</a></label>
+              <input type="text" id="harga_add" maxlength="17" class="form-control" placeholder="e.g. 178xxx" required>
           </div>
           <button class="btn btn-primary float-right" onclick="tambah()"><i class="fe fe-save"></i> Submit</button>
         </div>
@@ -36,7 +32,7 @@
     <div class="col-md-8">
       <div class="card shadow">
         <div class="card-header">
-          <strong class="card-title">Tabel Sopir</strong>
+          <strong class="card-title">Tabel Ban</strong>
           <button type="button" class="btn btn-sm float-right" onclick="refreshTable()"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
         </div>
         <div class="card-body">
@@ -45,15 +41,14 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>NAMA</th>
-                  <th>ALAMAT</th>
-                  <th>HP</th>
-                  <th>TGL LAHIR</th>
+                  <th>KODE</th>
+                  <th>KETERANGAN</th>
+                  <th>HARGA</th>
                   <th>UPDATE</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody id="tampil-tbody"><tr><td colspan="7"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
+              <tbody id="tampil-tbody"><tr><td colspan="6"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -67,27 +62,23 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          Ubah Data Sopir
+          Ubah Data Ban
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <input type="text" name="id" id="id_edit" hidden>
         <div class="form-group">
-          <label>Nama Lengkap <a class="text-danger">*</a></label>
-          <input type="text" id="driver_edit" value="" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
+          <label>Kode Ban <a class="text-danger">*</a></label>
+          <input type="text" id="kode_edit" class="form-control" placeholder="e.g. TIRON HS314 7,50 SHD" required autofocus>
         </div>
-        <div class="form-group mb-3">
-          <label for="example-textarea">Alamat</label>
-          <textarea class="form-control" id="alamat_edit" rows="4"></textarea>
+        <div class="form-group">
+          <label>Keterangan</label>
+          <textarea class="form-control" id="ket_edit" rows="4" placeholder="Optional"></textarea>
         </div>
-        <div class="form-group mb-3">
-          <label>No. HP</label>
-          <input type="number" id="hp_edit" class="form-control" placeholder="e.g. 628xxxxx">
-        </div>
-        <div class="form-group mb-3">
-          <label>Tgl Lahir</label>
-          <input type="date" id="lahir_edit" class="form-control">
+        <div class="form-group">
+            <label>Harga <a class="text-danger">*</a></label>
+            <input type="text" id="harga_edit" maxlength="17" class="form-control" placeholder="e.g. 178xxx" required>
         </div>
       </div>
       <div class="modal-footer">
@@ -103,10 +94,14 @@
 
 <script>
   $(document).ready( function () {
-    
+    $.fn.digits = function(){ 
+      return this.each(function(){ 
+          $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+      })
+    }    
     $.ajax(
       {
-        url: "./driver/table",
+        url: "./ban/table",
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
@@ -117,10 +112,9 @@
               $("#tampil-tbody").append(`
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
-                  <td>${item.nama}</td>
-                  <td>${item.alamat?item.alamat:''}</td>
-                  <td>${item.hp?item.hp:''}</td>
-                  <td>${item.lahir?item.lahir:''}</td>
+                  <td>${item.kode}</td>
+                  <td>${item.ket? item.ket : "" }</td>
+                  <td>Rp. ${item.harga.toLocaleString().replace(/[,]/g,'.')}</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -170,7 +164,7 @@
                       pdf: 'Jadikan PDF',
                   }
               },
-              order: [[ 5, "desc" ]],
+              order: [[ 4, "desc" ]],
               pageLength: 10
             }
           );
@@ -183,10 +177,10 @@
 <script>
   //function
   function refreshTable() {
-    $("#tampil-tbody").empty().append(`<tr><td colspan="7"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
+    $("#tampil-tbody").empty().append(`<tr><td colspan="6"><i class="fa fa-spinner fa-spin fa-fw"></i> Memproses data...</td></tr>`);
     $.ajax(
       {
-        url: "./driver/table",
+        url: "./ban/table",
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
@@ -197,10 +191,9 @@
               $("#tampil-tbody").append(`
                 <tr id="data${item.id}">
                   <td>${item.id}</td>
-                  <td>${item.nama}</td>
-                  <td>${item.alamat?item.alamat:''}</td>
-                  <td>${item.hp?item.hp:''}</td>
-                  <td>${item.lahir?item.lahir:''}</td>
+                  <td>${item.kode}</td>
+                  <td>${item.ket? item.ket : "" }</td>
+                  <td>Rp. ${item.harga.toLocaleString().replace(/[,]/g,'.')}</td>
                   <td>${item.updated_at}</td>
                   <td>
                     <center>
@@ -233,15 +226,15 @@
   }
 
   function tambah() {
-    var driver = $("#driver_add").val();
-    var alamat = $("#alamat_add").val();
-    var hp = $("#hp_add").val();
-    var lahir = $("#lahir_add").val();
-    
-    if (driver == "") {
+    var kode = $("#kode_add").val();
+    var ket = $("#ket_add").val();
+    var harga = $("#harga_add").val();
+    // $("#nopol_add").val("");
+    // $("#armada_add").val("");
+    if (kode == "" || harga == "") {
       Swal.fire({
         title: 'Pesan Galat!',
-        text: 'Nama Sopir wajib diisi.',
+        text: 'Kode / Harga Ban wajib diisi.',
         icon: 'error',
         showConfirmButton:false,
         showCancelButton:false,
@@ -257,13 +250,12 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: './driver/tambah', 
+        url: './ban/tambah', 
         dataType: 'json', 
         data: { 
-          driver: driver,
-          alamat: alamat,
-          hp: hp,
-          lahir: lahir,
+          kode: kode,
+          ket: ket,
+          harga: harga,
         }, 
         success: function(res) {
           Swal.fire({
@@ -290,15 +282,14 @@
     $('#modal-ubah').modal('show');
     $.ajax(
       {
-        url: "./driver/getubah/"+id,
+        url: "./ban/getubah/"+id,
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
           $("#id_edit").val(res.id);
-          $("#driver_edit").val(res.nama);
-          $("#alamat_edit").val(res.alamat);
-          $("#hp_edit").val(res.hp);
-          $("#lahir_edit").val(res.lahir);
+          $("#kode_edit").val(res.kode);
+          $("#ket_edit").val(res.ket);
+          $("#harga_edit").val("Rp. "+(res.harga).toLocaleString().replace(/[,]/g,'.'));
         }
       }
     );
@@ -306,15 +297,14 @@
 
   function ubah() {
     var id = $("#id_edit").val();
-    var driver = $("#driver_edit").val();
-    var alamat = $("#alamat_edit").val();
-    var hp = $("#hp_edit").val();
-    var lahir = $("#lahir_edit").val();
+    var kode = $("#kode_edit").val();
+    var ket = $("#ket_edit").val();
+    var harga = $("#harga_edit").val();
     
-    if (driver == "") {
+    if (kode == "" || harga == "") {
       Swal.fire({
         title: 'Pesan Galat!',
-        text: 'Nama Sopir wajib diisi.',
+        text: 'Kode / Harga Ban wajib diisi.',
         icon: 'error',
         showConfirmButton:false,
         showCancelButton:false,
@@ -330,14 +320,13 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: './driver/ubah/'+id, 
+        url: './ban/ubah/'+id, 
         dataType: 'json', 
         data: { 
           id: id,
-          driver: driver,
-          alamat: alamat,
-          hp: hp,
-          lahir: lahir,
+          kode: kode,
+          ket: ket,
+          harga: harga,
         }, 
         success: function(res) {
           Swal.fire({
@@ -364,7 +353,7 @@
   function hapus(id) {
     Swal.fire({
       title: 'Apakah anda yakin?',
-      text: 'Untuk menghapus Data Sopir ID : '+id,
+      text: 'Untuk menghapus Kode Ban ID : '+id,
       icon: 'warning',
       reverseButtons: false,
       showDenyButton: false,
@@ -378,7 +367,7 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "./driver/hapus/"+id,
+          url: "./ban/hapus/"+id,
           type: 'GET',
           dataType: 'json', // added data type
           success: function(res) {
@@ -413,6 +402,44 @@
         }); 
       }
     })
+  }
+  
+  // RUPIAH TAMBAH
+  var rupiah_tambah = document.getElementById('harga_add');
+  // RUPIAH EDIT
+  var rupiah_edit = document.getElementById('harga_edit');
+
+  if (rupiah_tambah) {
+      rupiah_tambah.addEventListener('keyup', function(e){
+          // tambahkan 'Rp.' pada saat form di ketik
+          // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+          rupiah_tambah.value = formatRupiah(this.value, 'Rp. ');
+      });
+  }
+  if (rupiah_edit) {
+      rupiah_edit.addEventListener('keyup', function(e){
+          // tambahkan 'Rp.' pada saat form di ketik
+          // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+          rupiah_edit.value = formatRupiah(this.value, 'Rp. ');
+      });
+  }
+
+  /* Fungsi formatRupiah */
+  function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split   		= number_string.split(','),
+      sisa     		= split[0].length % 3,
+      rupiah     		= split[0].substr(0, sisa),
+      ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if(ribuan){
+          separator = sisa ? '.' : '';
+          rupiah += separator + ribuan.join('.');
+      }
+
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
   }
 </script>
 
