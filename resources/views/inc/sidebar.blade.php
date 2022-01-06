@@ -91,16 +91,22 @@
           </li>
         </ul>
       </li> --}}
-      <li class="nav-item w-100">
+      {{-- <li class="nav-item w-100">
         <a class="nav-link" href="{{ route('user.bpu.index') }}">
           <i class="fa fa-wrench fe-16"></i>
           <span class="ml-3 item-text">Perbaikan Unit</span>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item w-100">
         <a class="nav-link" href="{{ route('user.pb.index') }}">
           <i class="fe fe-life-buoy fe-16"></i>
           <span class="ml-3 item-text">Pemakaian Ban</span>
+        </a>
+      </li>
+      <li class="nav-item w-100">
+        <a class="nav-link" href="{{ route('user.pu.index') }}">
+          <i class="fa fa-legal fe-16"></i>
+          <span class="ml-3 item-text">Pendapatan Unit</span>
         </a>
       </li>
       {{-- <li class="nav-item w-100">

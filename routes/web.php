@@ -66,6 +66,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
         Route::post('/bpu/tambah', 'User\rekap\bpuController@tambah')->name('bpu.tambah');
         Route::get('/bpu/table', 'User\rekap\bpuController@table')->name('bpu.table');
         Route::get('/bpu', 'User\rekap\bpuController@index')->name('bpu.index');
+        // Pendapatan Unit
+        Route::get('/pu/hapus/{id}', 'User\rekap\puController@hapus')->name('pu.hapus');
+        Route::post('/pu/ubah/{id}', 'User\rekap\puController@ubah')->name('pu.ubah');
+        Route::get('/pu/getubah/{id}', 'User\rekap\puController@getubah')->name('pu.getubah');
+        Route::post('/pu/tambah', 'User\rekap\puController@tambah')->name('pu.tambah');
+        Route::get('/pu/table', 'User\rekap\puController@table')->name('pu.table');
+        Route::get('/pu', 'User\rekap\puController@index')->name('pu.index');
         // Pemakaian Ban
             // REF
             Route::get('/pb/ban/hapus/{id}', 'User\rekap\refpbController@hapus')->name('ban.hapus');
