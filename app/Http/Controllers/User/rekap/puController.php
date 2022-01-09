@@ -43,12 +43,14 @@ class puController extends Controller
     public function table()
     {
         // $data = vehicle::orderBy('updated_at','desc')->get();
-        $data = DB::table('bpu')
-                ->join('driver', 'driver.id', '=', 'bpu.id_driver')
-                ->join('vehicle', 'vehicle.id', '=', 'bpu.id_nopol')
-                ->select('bpu.*','driver.nama','vehicle.nopol')
-                ->where('bpu.deleted_at', null)
-                ->orderBy('bpu.updated_at','desc')
+        $data = DB::table('pu')
+                ->join('vehicle', 'vehicle.id', '=', 'pu.id_vehicle')
+                ->join('driver', 'driver.id', '=', 'vehicle.id_driver')
+                ->join('destination as pupks', 'pupks.id', '=', 'pu.pks')
+                ->join('destination as putujuan', 'putujuan.id', '=', 'pu.tujuan')
+                ->select('pu.*','driver.nama','vehicle.nopol','pupks.lokasi as lokasi_pks','putujuan.lokasi as lokasi_tujuan')
+                ->where('pu.deleted_at', null)
+                ->orderBy('pu.updated_at','desc')
                 ->get();
 
         return response()->json($data, 200);
@@ -56,16 +58,37 @@ class puController extends Controller
 
     public function tambah(Request $request)
     {
-        $tgl = Carbon::now()->isoFormat('dddd, D MMMM Y, HH:mm a');
-        $getDriver = vehicle::where('id', $request->vehicle)->first();
-        $jml = str_replace(".","",(str_replace("Rp. ", "", $request->jml)));
+        $tgl        = Carbon::now()->isoFormat('dddd, D MMMM Y, HH:mm a');
 
-        $data = new bpu;
-        $data->tgl = $request->tgl;
-        $data->id_nopol = $request->vehicle;
-        $data->id_driver = $getDriver->id_driver;
-        $data->ket = $request->ket;
-        $data->jml = $jml;
+        $ongkos     = str_replace(".","",(str_replace("Rp. ", "", $request->ongkos)));
+        $t_muat     = str_replace(".","",(str_replace("Rp. ", "", $request->t_muat)));
+        $t_bongkar  = str_replace(".","",(str_replace("Rp. ", "", $request->t_bongkar)));
+        $bbm_harga  = str_replace(".","",(str_replace("Rp. ", "", $request->bbm_harga)));
+        $uang_makan = str_replace(".","",(str_replace("Rp. ", "", $request->uang_makan)));
+        $bpu_jumlah = str_replace(".","",(str_replace("Rp. ", "", $request->bpu_jumlah)));
+        $kotor      = str_replace(".","",(str_replace("Rp. ", "", $request->kotor)));
+        $bersih     = str_replace(".","",(str_replace("Rp. ", "", $request->bersih)));
+
+        $data = new pu;
+        $data->id_vehicle   = $request->vehicle;
+        $data->tgl          = $request->tgl;
+        $data->pks          = $request->pks;
+        $data->tujuan       = $request->tujuan;
+        $data->ongkos       = $ongkos;
+        $data->lainnya      = $request->lainnya;
+        $data->t_muat       = $t_muat;
+        $data->t_bongkar    = $t_bongkar;
+        $data->susut        = $t_bongkar - $t_muat;
+        $data->bbm_perliter = $bbm_harga;
+        $data->bbm_liter    = $request->bbm_jumlah;
+        $data->bbm_rp       = $request->bbm_jumlah * $bbm_harga;
+        $data->uang_makan   = $uang_makan;
+        $data->bpu_ket      = $request->bpu_ket;
+        $data->bpu_rp       = $bpu_jumlah;
+        $data->kotor        = $kotor;
+        $data->bersih       = $bersih;
+        // print_r($kotor);
+        // die();
         $data->save();
 
         return response()->json($tgl, 200);
@@ -73,7 +96,8 @@ class puController extends Controller
 
     public function getUbah($id)
     {
-        $show = bpu::where('id', $id)->first();
+        $show = pu::where('id', $id)->first();
+        $destination = destination::orderBy('lokasi','asc')->get();
         $vehicle = DB::table('vehicle')
                 ->join('driver', 'driver.id', '=', 'vehicle.id_driver')
                 ->select('vehicle.*','driver.nama')
@@ -83,11 +107,23 @@ class puController extends Controller
 
         $data = [
             'id' => $id,
-            'id_vehicle' => $show->id_nopol,
+            'vehicle' => $show->id_vehicle,
             'tgl' => $show->tgl,
-            'ket' => $show->ket,
-            'jml' => $show->jml,
+            'pks' => $show->pks,
+            'tujuan' => $show->tujuan,
+            'ongkos' => $show->ongkos,
+            'lainnya' => $show->lainnya,
+            't_muat' => $show->t_muat,
+            't_bongkar' => $show->t_bongkar,
+            'bbm_harga' => $show->bbm_perliter,
+            'bbm_jumlah' => $show->bbm_liter,
+            'uang_makan' => $show->uang_makan,
+            'bpu_ket' => $show->bpu_ket,
+            'bpu_jumlah' => $show->bpu_rp,
+            'kotor' => $show->kotor,
+            'bersih' => $show->bersih,
             'vehicle' => $vehicle,
+            'destination' => $destination,
         ];
 
         return response()->json($data, 200);
@@ -96,15 +132,36 @@ class puController extends Controller
     public function ubah(Request $request)
     {
         $tgl = Carbon::now()->isoFormat('dddd, D MMMM Y, HH:mm a');
-        $getDriver = vehicle::where('id', $request->vehicle)->first();
-        $jml = str_replace(".","",(str_replace("Rp. ", "", $request->jml)));
 
-        $data = bpu::find($request->id);
-        $data->tgl = $request->tgl;
-        $data->id_nopol = $request->vehicle;
-        $data->id_driver = $getDriver->id_driver;
-        $data->ket = $request->ket;
-        $data->jml = $jml;
+        $ongkos     = str_replace(".","",(str_replace("Rp. ", "", $request->ongkos)));
+        $t_muat     = str_replace(".","",(str_replace("Rp. ", "", $request->t_muat)));
+        $t_bongkar  = str_replace(".","",(str_replace("Rp. ", "", $request->t_bongkar)));
+        $bbm_harga  = str_replace(".","",(str_replace("Rp. ", "", $request->bbm_harga)));
+        $uang_makan = str_replace(".","",(str_replace("Rp. ", "", $request->uang_makan)));
+        $bpu_jumlah = str_replace(".","",(str_replace("Rp. ", "", $request->bpu_jumlah)));
+        $kotor      = str_replace(".","",(str_replace("Rp. ", "", $request->kotor)));
+        $bersih     = str_replace(".","",(str_replace("Rp. ", "", $request->bersih)));
+
+        $data = pu::find($request->id);
+        $data->id_vehicle   = $request->vehicle;
+        $data->tgl          = $request->tgl;
+        $data->pks          = $request->pks;
+        $data->tujuan       = $request->tujuan;
+        $data->ongkos       = $ongkos;
+        $data->lainnya      = $request->lainnya;
+        $data->t_muat       = $t_muat;
+        $data->t_bongkar    = $t_bongkar;
+        $data->susut        = $t_bongkar - $t_muat;
+        $data->bbm_perliter = $bbm_harga;
+        $data->bbm_liter    = $request->bbm_jumlah;
+        $data->bbm_rp       = $request->bbm_jumlah * $bbm_harga;
+        $data->uang_makan   = $uang_makan;
+        $data->bpu_ket      = $request->bpu_ket;
+        $data->bpu_rp       = $bpu_jumlah;
+        $data->kotor        = $kotor;
+        $data->bersih       = $bersih;
+        // print_r($data);
+        // die();
         $data->save();
         
         return response()->json($tgl, 200);
@@ -114,7 +171,7 @@ class puController extends Controller
     {
         $tgl = Carbon::now()->isoFormat('dddd, D MMMM Y, HH:mm a');
 
-        bpu::where('id', $id)->delete();
+        pu::where('id', $id)->delete();
 
         return response()->json($tgl, 200);
     }
