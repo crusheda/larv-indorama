@@ -109,18 +109,18 @@
           <span class="ml-3 item-text">Pendapatan Unit</span>
         </a>
       </li>
-      {{-- <li class="nav-item w-100">
-        <a class="nav-link" href="{{ route('user.pu.index') }}">
-          <i class="fa fa-money fe-16"></i>
-          <span class="ml-3 item-text">Pendapatan Unit</span>
+      <li class="nav-item w-100">
+        <a class="nav-link" href="{{ route('user.resume.index') }}">
+          <i class="fa fa-book fe-16"></i>
+          <span class="ml-3 item-text">Resume SPK</span>
         </a>
       </li>
       <li class="nav-item w-100">
-        <a class="nav-link" href="{{ route('user.bbm.index') }}">
-          <i class="fe fe-coffee fe-16"></i>
-          <span class="ml-3 item-text">BBM & Makan</span>
+        <a class="nav-link" href="#">
+          <i class="fa fa-money"></i>
+          <span class="ml-3 item-text">Pembayaran SPK</span>
         </a>
-      </li> --}}
+      </li>
     </ul>
     {{-- <p class="text-muted nav-heading mt-4 mb-1">
       <span>Help Desk</span>

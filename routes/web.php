@@ -40,8 +40,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
         Route::get('/driver/hapus/{id}', 'User\reference\driverController@hapus')->name('driver.hapus');
         Route::post('/driver/ubah/{id}', 'User\reference\driverController@ubah')->name('driver.ubah');
         Route::get('/driver/getubah/{id}', 'User\reference\driverController@getubah')->name('driver.getubah');
+        Route::get('/driver/foto/hapus/{id}', 'User\reference\driverController@hapusFoto')->name('driver.hapusFoto');
+        Route::post('/driver/tambah/foto', 'User\reference\driverController@foto')->name('driver.tambahFoto');
         Route::post('/driver/tambah', 'User\reference\driverController@tambah')->name('driver.tambah');
         Route::get('/driver/table', 'User\reference\driverController@table')->name('driver.table');
+        Route::get('/driver/{id}', 'User\reference\driverController@show')->name('driver.show');
         Route::get('/driver', 'User\reference\driverController@index')->name('driver.index');
         // Customer
         Route::get('/customer/hapus/{id}', 'User\reference\customerController@hapus')->name('customer.hapus');
@@ -89,6 +92,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user', 'as' => 'user.'], fu
             Route::post('/pb/tambah', 'User\rekap\pbController@tambah')->name('pb.tambah');
             Route::get('/pb/table', 'User\rekap\pbController@table')->name('pb.table');
             Route::get('/pb', 'User\rekap\pbController@index')->name('pb.index');
+        // Resume SPK
+        Route::get('/resume/hapus/{id}', 'User\rekap\resumeController@hapus')->name('resume.hapus');
+        Route::post('/resume/ubah/{id}', 'User\rekap\resumeController@ubah')->name('resume.ubah');
+        Route::get('/resume/getubah/{id}', 'User\rekap\resumeController@getubah')->name('resume.getubah');
+        Route::post('/resume/tambah', 'User\rekap\resumeController@tambah')->name('resume.tambah');
+        Route::get('/resume/table', 'User\rekap\resumeController@table')->name('resume.table');
+        Route::get('/resume', 'User\rekap\resumeController@index')->name('resume.index');
 });
 
 // Route::get('/', function () {

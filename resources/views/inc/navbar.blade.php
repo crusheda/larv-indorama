@@ -11,15 +11,15 @@
         <i class="fe fe-sun fe-16"></i>
       </a>
     </li>    
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
         <span class="fe fe-grid fe-16"></span>
       </a>
-    </li>
+    </li> --}}
     <li class="nav-item nav-notif">
       <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
         <span class="fe fe-bell fe-16"></span>
-        <span class="dot dot-md bg-success"></span>
+        {{-- <span class="dot dot-md bg-success"></span> --}}
       </a>
     </li>
     <li class="nav-item dropdown">
@@ -30,8 +30,8 @@
         </span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Profile</a>
-        <a class="dropdown-item" href="#">Settings</a>
+        <a class="dropdown-item" href="#">Profil</a>
+        <a class="dropdown-item" href="#">Ubah Password</a>
         <a class="dropdown-item" href="#logout" target="_blank" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">Logout</a>
       </div>
     </li>
@@ -50,7 +50,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="list-group list-group-flush my-n3">
+        {{-- <div class="list-group list-group-flush my-n3">
           <div class="list-group-item bg-transparent">
             <div class="row align-items-center">
               <div class="col-auto">
@@ -99,7 +99,7 @@
               </div>
             </div>
           </div> <!-- / .row -->
-        </div> <!-- / .list-group -->
+        </div> <!-- / .list-group --> --}}
       </div>
       {{-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
@@ -117,7 +117,7 @@
         </button>
       </div>
       <div class="modal-body px-5">
-        <div class="row align-items-center">
+        {{-- <div class="row align-items-center">
           <div class="col-6 text-center">
             <div class="squircle bg-success justify-content-center">
               <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
@@ -158,7 +158,7 @@
             </div>
             <p>Lorem ipsum</p>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>

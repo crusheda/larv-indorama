@@ -1,7 +1,7 @@
 @extends('layouts.user')
 
 @section('content')
-<div class="container-fluid">
+{{-- <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12">
       <div class="row">
@@ -106,15 +106,36 @@
       <div class="row my-4">
         <div class="col-md-12">
           <div class="chart-box">
-            <div id="columnChart"></div>
+            <div id="chartku"></div>
           </div>
         </div> <!-- .col -->
       </div> <!-- end section -->
     </div>
   </div>
-</div>
+</div> --}}
 
 {{-- SCRIPT --}}
 @include('inc.script')
+{{-- <script>
+  var options = {
+    chart: {
+      type: 'area'
+    },
+    stroke: {
+      curve: 'smooth',
+    },
+    series: [{
+      name: 'sales',
+      data: [30,40,35,50,49,60,70,91,125]
+    }],
+    xaxis: {
+      categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+    }
+  }
+
+  var chart = new ApexCharts(document.querySelector("#chartku"), options);
+
+  chart.render();
+</script> --}}
 
 @endsection

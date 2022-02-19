@@ -4,7 +4,7 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
-            Home
+            Anda masuk sebagai Admin
         </div>
     </div>
 </div>

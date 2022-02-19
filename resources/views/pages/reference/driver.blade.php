@@ -18,6 +18,10 @@
             <input type="text" id="driver_add" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
           </div>
           <div class="form-group mb-3">
+            <label>NIK <a class="text-danger">*</a></label>
+            <input type="number" id="nik_add" class="form-control" maxlength="16" placeholder="..." oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+          </div>
+          <div class="form-group mb-3">
             <label for="example-textarea">Alamat</label>
             <textarea class="form-control" id="alamat_add" rows="4"></textarea>
           </div>
@@ -78,6 +82,10 @@
           <input type="text" id="driver_edit" value="" class="form-control" placeholder="e.g. Sunaryo" required autofocus>
         </div>
         <div class="form-group mb-3">
+          <label>NIK <a class="text-danger">*</a></label>
+          <input type="number" id="nik_edit" class="form-control" maxlength="16" placeholder="...">
+        </div>
+        <div class="form-group mb-3">
           <label for="example-textarea">Alamat</label>
           <textarea class="form-control" id="alamat_edit" rows="4"></textarea>
         </div>
@@ -128,8 +136,9 @@
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        ${item.title?'<a href="#" class="dropdown-item" onclick="showFoto('+item.id+')">Lihat Foto</a>':'<a href="#" class="dropdown-item" onclick="foto('+item.id+')">Tambah Foto</a>'}
+                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>
@@ -208,8 +217,9 @@
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        ${item.title?'<a href="#" class="dropdown-item" onclick="showFoto('+item.id+')">Lihat Foto</a>':'<a href="#" class="dropdown-item" onclick="foto('+item.id+')">Tambah Foto</a>'}
+                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>
@@ -234,6 +244,7 @@
 
   function tambah() {
     var driver = $("#driver_add").val();
+    var nik = $("#nik_add").val();
     var alamat = $("#alamat_add").val();
     var hp = $("#hp_add").val();
     var lahir = $("#lahir_add").val();
@@ -252,37 +263,53 @@
         backdrop: `rgba(26,27,41,0.8)`,
       });
     } else {
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        method: 'POST',
-        url: './driver/tambah', 
-        dataType: 'json', 
-        data: { 
-          driver: driver,
-          alamat: alamat,
-          hp: hp,
-          lahir: lahir,
-        }, 
-        success: function(res) {
-          Swal.fire({
-            title: 'Tambah Data Berhasil!',
-            text: 'Silakan periksa kembali data anda',
-            icon: 'success',
-            showConfirmButton:false,
-            showCancelButton:false,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            timer: 3000,
-            timerProgressBar: true,
-            backdrop: `rgba(26,27,41,0.8)`,
-          });
-          if (res) {
-            refreshTable();
+      if (nik == "") {
+        Swal.fire({
+          title: 'Pesan Galat!',
+          text: 'NIK wajib diisi.',
+          icon: 'error',
+          showConfirmButton:false,
+          showCancelButton:false,
+          allowOutsideClick: true,
+          allowEscapeKey: true,
+          timer: 3000,
+          timerProgressBar: true,
+          backdrop: `rgba(26,27,41,0.8)`,
+        });
+      } else {
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          method: 'POST',
+          url: './driver/tambah', 
+          dataType: 'json', 
+          data: { 
+            driver: driver,
+            nik: nik,
+            alamat: alamat,
+            hp: hp,
+            lahir: lahir,
+          }, 
+          success: function(res) {
+            Swal.fire({
+              title: 'Tambah Data Berhasil!',
+              text: 'Silakan periksa kembali data anda',
+              icon: 'success',
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 3000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+            if (res) {
+              refreshTable();
+            }
           }
-        }
-      }); 
+        }); 
+      }
     }
   }
   
@@ -296,6 +323,7 @@
         success: function(res) {
           $("#id_edit").val(res.id);
           $("#driver_edit").val(res.nama);
+          $("#nik_edit").val(res.nik);
           $("#alamat_edit").val(res.alamat);
           $("#hp_edit").val(res.hp);
           $("#lahir_edit").val(res.lahir);
@@ -307,6 +335,7 @@
   function ubah() {
     var id = $("#id_edit").val();
     var driver = $("#driver_edit").val();
+    var nik = $("#nik_edit").val();
     var alamat = $("#alamat_edit").val();
     var hp = $("#hp_edit").val();
     var lahir = $("#lahir_edit").val();
@@ -325,40 +354,190 @@
         backdrop: `rgba(26,27,41,0.8)`,
       });
     } else {
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        method: 'POST',
-        url: './driver/ubah/'+id, 
-        dataType: 'json', 
-        data: { 
-          id: id,
-          driver: driver,
-          alamat: alamat,
-          hp: hp,
-          lahir: lahir,
-        }, 
-        success: function(res) {
-          Swal.fire({
-            title: 'Tambah Data Berhasil!',
-            text: 'Silakan periksa kembali data anda',
-            icon: 'success',
-            showConfirmButton:false,
-            showCancelButton:false,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            timer: 3000,
-            timerProgressBar: true,
-            backdrop: `rgba(26,27,41,0.8)`,
-          });
-          if (res) {
-            $('#modal-ubah').modal('hide');
-            refreshTable();
+      if (nik == "") {
+        Swal.fire({
+          title: 'Pesan Galat!',
+          text: 'NIK wajib diisi.',
+          icon: 'error',
+          showConfirmButton:false,
+          showCancelButton:false,
+          allowOutsideClick: true,
+          allowEscapeKey: true,
+          timer: 3000,
+          timerProgressBar: true,
+          backdrop: `rgba(26,27,41,0.8)`,
+        });
+      } else {
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          method: 'POST',
+          url: './driver/ubah/'+id, 
+          dataType: 'json', 
+          data: { 
+            id: id,
+            driver: driver,
+            nik: nik,
+            alamat: alamat,
+            hp: hp,
+            lahir: lahir,
+          }, 
+          success: function(res) {
+            Swal.fire({
+              title: 'Tambah Data Berhasil!',
+              text: 'Silakan periksa kembali data anda',
+              icon: 'success',
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 3000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+            if (res) {
+              $('#modal-ubah').modal('hide');
+              refreshTable();
+            }
           }
-        }
-      });
+        });
+      }
     }
+  }
+
+  function foto(id) {
+    Swal.fire({
+      title: 'Tambah Foto',
+      text: 'Sopir ID : '+id,
+      input: 'file',
+      onBeforeOpen: () => {
+        $(".swal2-file").change(function () {
+          if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+          }
+        });
+      },
+      reverseButtons: true,
+      showDenyButton: false,
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: `<i class="fa fa-save"></i> Simpan`,
+      backdrop: `rgba(26,27,41,0.8)`,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Upload Foto anda terlebih dahulu!'
+        }
+      },
+      inputAttributes: {
+        'accept': 'image/*',
+        'aria-label': 'Upload Foto'
+      },
+    }).then((file) => {
+      if (file.value) {
+        var formData = new FormData();
+        var file = $('.swal2-file')[0].files[0];
+        formData.append("fileToUpload", file);
+        formData.append("id", id);
+        $.ajax({
+          headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+          method: 'post',
+          url: "./driver/tambah/foto",  
+          dataType: 'json', 
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (res) {
+            Swal.fire({
+              title: `Foto berhasil di Upload!`,
+              text: res,
+              icon: `success`,
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 2000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+            refreshTable();
+          },
+          error: function() {
+            Swal.fire({
+              title: `Foto gagal di Upload!`,
+              text: `Mohon coba beberapa saat lagi`,
+              icon: `error`,
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 2000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+          }
+        })
+      }
+    })
+  }
+
+  function showFoto(id) {
+    Swal.fire({
+      title: 'Foto Sopir '+id,
+      text: 'Refresh halaman ini untuk mengupdate Foto',
+      imageUrl: './driver/'+id,
+      imageWidth: 400,
+      // imageHeight: 200,
+      imageAlt: 'Foto',
+      reverseButtons: true,
+      showDenyButton: true,
+      showCloseButton: true,
+      showCancelButton: true,
+      cancelButtonText:'<i class="fa fa-close"></i> Tutup',
+      denyButtonText: `<i class="fa fa-trash"></i> Hapus`,
+      confirmButtonText: `<i class="fa fa-download"></i> Download`,
+      backdrop: `rgba(26,27,41,0.8)`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "#"+id;
+      } else if (result.isDenied) {
+        $.ajax({
+          url: "./driver/foto/hapus/"+id,
+          type: 'GET',
+          dataType: 'json', // added data type
+          success: function(res) {
+            Swal.fire({
+              title: `Hapus Berhasil!`,
+              text: 'Pada '+res,
+              icon: `success`,
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 3000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+            refreshTable();
+          },
+          error: function(res) {
+            Swal.fire({
+              title: `Gagal di hapus!`,
+              text: 'Pada '+res,
+              icon: `error`,
+              showConfirmButton:false,
+              showCancelButton:false,
+              allowOutsideClick: true,
+              allowEscapeKey: true,
+              timer: 3000,
+              timerProgressBar: true,
+              backdrop: `rgba(26,27,41,0.8)`,
+            });
+          }
+        }); 
+      }
+    })
   }
 
   function hapus(id) {

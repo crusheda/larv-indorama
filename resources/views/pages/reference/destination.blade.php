@@ -108,8 +108,8 @@
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>
@@ -186,8 +186,8 @@
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>

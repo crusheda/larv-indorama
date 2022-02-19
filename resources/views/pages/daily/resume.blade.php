@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h2 class="page-title"><i class="fa fa-legal"></i> Tambah Data Pendapatan Unit Baru</h2>
-      <p class="text-muted">Lengkapi data pendapatan unit anda.</p>
+      <h2 class="page-title"><i class="fa fa-legal"></i> Tambah Data Resume SPK Baru</h2>
+      <p class="text-muted">Lengkapi data resume SPK anda.</p>
     </div>
     <div class="accordion w-100" id="accordion1">
       <div class="card shadow">
@@ -13,134 +13,135 @@
           <a role="button" href="#collapse1" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
             <i class="fe fe-chevron-down"></i>&nbsp;&nbsp;<strong>Tambah data baru</strong>
           </a>
-          <div class="custom-control custom-switch float-right">
+          {{-- <div class="custom-control custom-switch float-right">
             <input type="checkbox" class="custom-control-input" id="lain1" onclick="lainnya()">
             <label class="custom-control-label" for="lain1">Lainnya</label>
-          </div>
+          </div> --}}
+          <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
         </div>
-        <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
           <div class="col-md-12">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Tanggal <a class="text-danger">*</a></label>
-                    <input type="date" id="tgl_add" class="form-control" value="<?php echo strftime('%Y-%m-%d', strtotime($list['now'])); ?>">
-                    <span class="help-block"><small>Default tanggal dipilih <strong>Hari ini</strong></small></span>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="simple-select2">No. Polisi & Driver <a class="text-danger">*</a></label>
-                    <select class="form-control select2" id="vehicle_add">
-                      <option value="Pilih" hidden>Pilih</option>
-                      @foreach($list['vehicle'] as $key => $item)
-                          <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->nopol }} ({{ $item->nama }})</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-2" id="pks_hidden">
-                  <div class="form-group">
-                    <label for="simple-select2">PKS <a class="text-danger">*</a></label>
-                    <select class="form-control select2" id="pks_add">
-                      <option value="Pilih" hidden>Pilih</option>
-                      @foreach($list['destination'] as $key => $item)
-                          <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->lokasi }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-2" id="tujuan_hidden">
-                  <div class="form-group">
-                    <label for="simple-select2">Tujuan <a class="text-danger">*</a></label>
-                    <select class="form-control select2" id="tujuan_add">
-                      <option value="Pilih" hidden>Pilih</option>
-                      @foreach($list['destination'] as $key => $item)
-                          <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->lokasi }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-2" id="ongkos_hidden">
-                  <div class="form-group">
-                      <label>Ongkos <a class="text-danger">*</a></label>
-                      <input type="text" id="ongkos_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-                  </div>
-                </div>
-                <div class="col-md-6 form-group" id="ket_hidden" hidden>
-                  <label for="example-textarea">Keterangan <a class="text-danger">*</a></label>
-                  <input type="text" id="lainnya_add" class="form-control" placeholder="e.g. Tambahan Solar, etc" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                      <label>Timbangan Muat <a class="text-danger">*</a></label>
-                      <input type="text" id="t_muat_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                      <label>Timbangan Bongkar <a class="text-danger">*</a></label>
-                      <input type="text" id="t_bongkar_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group">
-                      <label>BBM Per Liter</label>
-                      <input type="text" id="bbm_harga_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group">
-                      <label>BBM Terpakai (Liter)</label>
-                      <input type="text" id="bbm_jumlah_add" maxlength="17" class="form-control" placeholder="e.g. 90" required>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group">
-                      <label>Uang Makan</label>
-                      <input type="text" id="uang_makan_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <p class="mb-2"><i class="fe fe-chevron-right"></i>&nbsp;&nbsp;<strong>Perbaikan Unit</strong></p>
-              <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4">
                   <div class="form-group mb-3">
-                    <label for="example-textarea">Keterangan</label>
-                    <textarea class="form-control" id="bpu_ket_add" rows="4" placeholder="e.g. Ganti Oli, Cek angin, dan Tambal Ban"></textarea>
+                    <label for="example-month">Bulan <a class="text-danger">*</a></label>
+                    <input class="form-control" id="bulan_add" type="month">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                      <label>Biaya</label>
-                      <input type="text" id="bpu_jumlah_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" disabled>
-                      <span class="help-block"><small>Isi <strong>Keterangan Perbaikan</strong> untuk menambah Biaya Perbaikan</small></span>
+                    <label for="simple-select2">Pelanggan <a class="text-danger">*</a></label>
+                    <select class="form-control select2" id="customer_add">
+                      <option value="Pilih" hidden>Pilih</option>
+                      @foreach($list['customer'] as $key => $item)
+                          <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->nama }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>No. Inv</label>
+                    <input type="text" name="nama" id="inv_add" class="form-control" placeholder="e.g. Sunaryo" autofocus>
                   </div>
                 </div>
               </div>
               <hr>
-              <p class="mb-2"><i class="fe fe-chevron-right"></i>&nbsp;&nbsp;<strong>Pendapatan Unit</strong> (Klik tombol Hitung untuk Submit)</p>
-              {{-- <div class="row"> --}}
-                
-                <div class="form-group row">
-                  <label for="kotor_add" class="col-sm-1 col-form-label">Kotor <a data-toggle="popover" title="Rumus = Ongkos x Timbangan Bongkar"><i class="fe fe-help-circle"></i></a></label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" id="kotor_add" maxlength="17" value="Rp. -" readonly>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Tonase Tagihan <a class="text-danger">*</a></label>
+                      <input type="text" id="tonase_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label for="bersih_add" class="col-sm-1 col-form-label">Bersih <a data-toggle="popover" title="Rumus = Jumlah Kotor - (Biaya Solar + Biaya Uang Makan + Biaya Perbaikan Unit)"><i class="fe fe-help-circle"></i></a></label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" id="bersih_add" maxlength="17" value="Rp. -" readonly>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Harga Armada <a class="text-danger">*</a></label>
+                      <input type="text" id="harga_arm_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
                   </div>
                 </div>
-                    {{-- <input type="text" id="kotor_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" readonly><br>
-                    <input type="text" id="bersih_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx" readonly> --}}
-              {{-- </div> --}}
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Total Biaya</label>
+                      <input type="text" id="total_biaya_add" maxlength="17" class="form-control" placeholder="Rp. -" readonly>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Fee Management</label>
+                      <input type="text" id="fee_mgmt_add" maxlength="17" class="form-control" placeholder="Rp. -" readonly>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Entertainer <a class="text-danger">*</a></label>
+                      <input type="text" id="entertainer_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Susut <a class="text-danger">*</a></label>
+                      <input type="text" id="susut_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Deduction BBM <a class="text-danger">*</a></label>
+                      <input type="text" id="deduction_bbm_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Pengalihan Rute <a class="text-danger">*</a></label>
+                      <input type="text" id="pengalihan_rute_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Harga SPK <a class="text-danger">*</a></label>
+                      <input type="text" id="harga_spk_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label>Jasa Pelabuhan <a class="text-danger">*</a></label>
+                      <input type="text" id="jasa_pelabuhan_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label>Jasa Timbangan <a class="text-danger">*</a></label>
+                      <input type="text" id="jasa_timbangan_add" maxlength="17" class="form-control" placeholder="e.g. 100xxx">
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <label>DPP</label>
+                      <input type="text" id="dpp_add" maxlength="17" class="form-control" placeholder="Rp. -" readonly>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <label>PPN</label>
+                      <input type="text" id="ppn_add" maxlength="17" class="form-control" placeholder="Rp. -" readonly>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <label>PPH</label>
+                      <input type="text" id="pph_add" maxlength="17" class="form-control" placeholder="Rp. -" readonly>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <label>Total Inv</label>
+                      <input type="text" id="total_inv_add" maxlength="17" class="form-control" placeholder="Rp. -" readonly>
+                  </div>
+                </div>
+              </div>
               <button class="btn btn-success float-left mb-3 text-white" id="hitung_add" onclick="hitung()"><i class="fa fa-calculator"></i> Hitung</button>
               <button class="btn btn-primary float-right mb-3" id="submit_add" onclick="tambah()" disabled><i class="fe fe-save"></i> Submit</button>
             </div>
@@ -150,14 +151,14 @@
       <div class="card shadow">
         <div class="card-header" id="heading1">
           <a role="button" href="#collapse2" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-            <i class="fe fe-chevron-down"></i>&nbsp;&nbsp;<strong>Tabel Data Perbaikan Unit</strong>
+            <i class="fe fe-chevron-down"></i>&nbsp;&nbsp;<strong>Tabel Data Resume SPK</strong>
           </a>
         </div>
         <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion1">
           <div class="col-md-12">
             <div class="card-body">
               <div class="button-group">
-                <button class="btn btn-success text-white" onclick="rekap()" disabled><i class="fe fe-server"></i> Rekap</button>
+                <button class="btn btn-success text-white" onclick="pembayaran()" disabled><i class="fe fe-server"></i> Rekap Pembayaran</button>
                 <button type="button" class="btn btn-sm float-right" onclick="refreshTable()"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
               </div>
               <hr>
@@ -166,19 +167,24 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>TGL</th>
-                      <th>UNIT</th>
-                      <th>PKS / TUJUAN (ONGKOS)</th>
-                      <th>LAINLAIN</th>
-                      <th>TIMBANGAN MUAT / BONGKAR (SUSUT)</th>
-                      <th>PEMAKAIAN BBM</th>
-                      <th>BBM</th>
-                      <th>UANG MAKAN</th>
-                      <th>KET. PERBAIKAN</th>
-                      <th>BIAYA. PERBAIKAN</th>
-                      <th>KOTOR</th>
-                      <th>BERSIH</th>
-                      <th>DIPERBARUI</th>
+                      <th>INV</th>
+                      <th>BLN</th>
+                      <th>PELANGGAN</th>
+                      <th>TONASE</th>
+                      <th>HARGA ARM</th>
+                      <th>TOTAL BIAYA</th>
+                      <th>FEE MGMT</th>
+                      <th>ENTERTAINER</th>
+                      <th>SUSUT</th>
+                      <th>JASA PELABUHAN</th>
+                      <th>JASA TIMBANGAN</th>
+                      <th>DEDUCTION BBM</th>
+                      <th>PENGALIHAN RUTE</th>
+                      <th>HARGA SPK</th>
+                      <th>DPP</th>
+                      <th>PPN</th>
+                      <th>PPH</th>
+                      <th>TOTAL INV</th>
                       <th>#</th>
                     </tr>
                   </thead>
@@ -189,178 +195,9 @@
           </div>
         </div>
       </div>
-      {{-- <div class="card shadow">
-        <div class="card-header" id="heading1">
-          <a role="button" href="#collapse3" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-            <strong>Collapse three</strong>
-          </a>
-        </div>
-        <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion1">
-          <div class="card-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. </div>
-        </div>
-      </div> --}}
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="modal-ubah" role="dialog" aria-labelledby="confirmFormLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          Ubah Data Perbaikan Unit
-        </h5>
-        <div class="custom-control custom-switch float-right" style="margin-left:20px">
-          <input type="checkbox" class="custom-control-input" id="lain2" onclick="lainnya_edit()">
-          <label class="custom-control-label" for="lain2">Lainnya</label>
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <input type="text" name="id" id="id_edit" hidden>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label>Tanggal <a class="text-danger">*</a></label>
-              <input type="date" id="tgl_edit" class="form-control">
-              <span class="help-block"><small>Default tanggal dipilih <strong>Hari ini</strong></small></span>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="simple-select2">No. Polisi & Driver <a class="text-danger">*</a></label>
-              <select class="form-control select2" id="vehicle_edit">
-                <option value="Pilih" hidden>Pilih</option>
-                @foreach($list['vehicle'] as $key => $item)
-                    <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->nopol }} ({{ $item->nama }})</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-        </div>
-        <hr style="margin-top: -6px">
-        <div class="row">
-          <div class="col" id="pks_hidden_edit">
-            <div class="form-group">
-              <label for="simple-select2">PKS <a class="text-danger">*</a></label>
-              <select class="form-control select2" id="pks_edit">
-                <option value="Pilih" hidden>Pilih</option>
-                @foreach($list['destination'] as $key => $item)
-                    <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->lokasi }}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="col" id="tujuan_hidden_edit">
-            <div class="form-group">
-              <label for="simple-select2">Tujuan <a class="text-danger">*</a></label>
-              <select class="form-control select2" id="tujuan_edit">
-                <option value="Pilih" hidden>Pilih</option>
-                @foreach($list['destination'] as $key => $item)
-                    <option value="{{ $item->id }}" style="text-transform: uppercase"><label>{{ $item->lokasi }}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="col" id="ongkos_hidden_edit">
-            <div class="form-group">
-                <label>Ongkos <a class="text-danger">*</a></label>
-                <input type="text" id="ongkos_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-            </div>
-          </div>
-          <div class="col form-group" id="ket_hidden_edit" hidden>
-            <label for="example-textarea">Keterangan <a class="text-danger">*</a></label>
-            <input type="text" id="lainnya_edit" class="form-control" placeholder="e.g. Tambahan Solar, etc" required>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-                <label>Timbangan Muat <a class="text-danger">*</a></label>
-                <input type="text" id="t_muat_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-                <label>Timbangan Bongkar <a class="text-danger">*</a></label>
-                <input type="text" id="t_bongkar_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-                <label>BBM Per Liter</label>
-                <input type="text" id="bbm_harga_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-                <label>BBM Terpakai (Liter)</label>
-                <input type="text" id="bbm_jumlah_edit" maxlength="17" class="form-control" placeholder="e.g. 90" required>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label>Uang Makan</label>
-                <input type="text" id="uang_makan_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" required>
-            </div>
-          </div>
-        </div>
-        <hr style="margin-top: -6px">
-        <p class="mb-2"><i class="fe fe-chevron-right"></i>&nbsp;&nbsp;<strong>Perbaikan Unit</strong></p>
-        <div class="row">
-          <div class="col-md-7">
-            <div class="form-group mb-3">
-              <label for="example-textarea">Keterangan</label>
-              <textarea class="form-control" id="bpu_ket_edit" rows="4" placeholder="e.g. Ganti Oli, Cek angin, dan Tambal Ban"></textarea>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="form-group">
-                <label>Biaya</label>
-                <input type="text" id="bpu_jumlah_edit" maxlength="17" class="form-control" placeholder="e.g. 100xxx" disabled>
-                <span class="help-block"><small>Isi <strong>Keterangan Perbaikan</strong> untuk menambah Biaya Perbaikan</small></span>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <p class="mb-2"><i class="fe fe-chevron-right"></i>&nbsp;&nbsp;<strong>Pendapatan Unit</strong> (Klik tombol Hitung untuk Submit)</p>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="kotor_edit" class="col-form-label">Kotor <a data-toggle="popover" title="Rumus = Ongkos x Timbangan Bongkar"><i class="fe fe-help-circle"></i></a></label>
-              <input type="text" class="form-control" id="kotor_edit" maxlength="17" value="Rp. -" readonly>
-              {{-- <div class="col-sm-4">
-              </div> --}}
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="bersih_edit" class="col-form-label">Bersih <a data-toggle="popover" title="Rumus = Jumlah Kotor - (Biaya Solar + Biaya Uang Makan + Biaya Perbaikan Unit)"><i class="fe fe-help-circle"></i></a></label>
-              <input type="text" class="form-control" id="bersih_edit" maxlength="17" value="Rp. -" readonly>
-              {{-- <div class="col-sm-4">
-              </div> --}}
-            </div>
-          </div>
-          <div class="col-auto">
-            <label for="hitung_edit" class="col-form-label">Hitung</label>
-            <br>
-            <button class="btn btn-success text-white" id="hitung_edit" onclick="hitung_edit()"><i class="fa fa-calculator"></i></button>
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        {{-- <button class="btn btn-success float-left text-white" id="hitung_edit" onclick="hitung_edit()"><i class="fa fa-calculator"></i> Hitung</button> --}}
-        <a id="hitung_klik">Klik <strong>Hitung</strong> untuk Submit</a>
-        <button class="btn btn-primary text-white float-right" id="submit_edit" onclick="ubah()" disabled><i class="fe fe-save"></i> Submit</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-fw fa fa-close"></i> Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 {{-- SCRIPT --}}
 @include('inc.script')
@@ -374,25 +211,25 @@
           $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
       })
     }
-    $('#bpu_ket_add').keydown(function () {
-      var len = $(this).val().length;
-        if (len >= 1) {
-          $('#bpu_jumlah_add').prop('disabled', false);
-        } else {
-          $('#bpu_jumlah_add').prop('disabled', true).val('');
-        }
-    });
-    $('#bpu_ket_edit').keydown(function () {
-      var len = $(this).val().length;
-        if (len >= 1) {
-          $('#bpu_jumlah_edit').prop('disabled', false);
-        } else {
-          $('#bpu_jumlah_edit').prop('disabled', true).val('');
-        }
-    });
+    // $('#bpu_ket_add').keydown(function () {
+    //   var len = $(this).val().length;
+    //     if (len >= 1) {
+    //       $('#bpu_jumlah_add').prop('disabled', false);
+    //     } else {
+    //       $('#bpu_jumlah_add').prop('disabled', true).val('');
+    //     }
+    // });
+    // $('#bpu_ket_edit').keydown(function () {
+    //   var len = $(this).val().length;
+    //     if (len >= 1) {
+    //       $('#bpu_jumlah_edit').prop('disabled', false);
+    //     } else {
+    //       $('#bpu_jumlah_edit').prop('disabled', true).val('');
+    //     }
+    // });
     $.ajax(
       {
-        url: "./pu/table",
+        url: "./resume/table",
         type: 'GET',
         dataType: 'json', // added data type
         success: function(res) {
@@ -422,8 +259,8 @@
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>
@@ -474,47 +311,42 @@
 <script>
   //function
   function hitung() {
-    const ongkos = parseInt($('#ongkos_add').val().replace(/[Rp. ]/g,''));
-    const t_bongkar = parseInt($('#t_bongkar_add').val().replace(/[Rp. ]/g,''));
-    var bbm_harga = parseInt($('#bbm_harga_add').val().replace(/[Rp. ]/g,''));
-    var uang_makan = parseInt($('#uang_makan_add').val().replace(/[Rp. ]/g,''));
-    var bpu_jumlah = parseInt($('#bpu_jumlah_add').val().replace(/[Rp. ]/g,''));
-    var bbm_jumlah = parseInt($('#bbm_jumlah_add').val());
+    // const ongkos = parseInt($('#ongkos_add').val().replace(/[Rp. ]/g,''));
+    var tonase = parseInt($('#tonase_add').val().replace(/[Rp. ]/g,''));
+    var harga_arm = parseInt($('#harga_arm_add').val().replace(/[Rp. ]/g,''));
 
     // HITUNG KOTOR
-    if (isNaN(ongkos) == false && isNaN(t_bongkar) == false) {
-      var kotor = ongkos * t_bongkar;
-    } else {
-      var kotor = 0;
-    }
-    $('#kotor_add').val("Rp. "+(kotor).toLocaleString().replace(/[,]/g,'.'));
+    // if (isNaN(ongkos) == false && isNaN(t_bongkar) == false) {
+    //   var kotor = ongkos * t_bongkar;
+    // } else {
+    //   var kotor = 0;
+    // }
+    // $('#kotor_add').val("Rp. "+(kotor).toLocaleString().replace(/[,]/g,'.'));
 
     // HITUNG BERSIH
-    if (isNaN(bbm_harga) == true)  { bbm_harga = 0; }
-    if (isNaN(bbm_jumlah) == true) { bbm_jumlah = 0; }
-    if (isNaN(uang_makan) == true) { uang_makan = 0; }
-    if (isNaN(bpu_jumlah) == true) { bpu_jumlah = 0; }
+    if (isNaN(tonase) == true)  { toanse = 0; }
+    if (isNaN(harga_arm) == true) { harga_arm = 0; }
 
-    var bersih = kotor - ((bbm_harga * bbm_jumlah) + uang_makan + bpu_jumlah);
-    $('#bersih_add').val("Rp. "+(bersih).toLocaleString().replace(/[,]/g,'.'));
+    var total_biaya = tonase * harga_arm;
+    $('#total_biaya_add').val("Rp. "+(total_biaya).toLocaleString().replace(/[,]/g,'.'));
 
-    if (bersih == 0) {
-      $('#submit_add').prop('disabled', true);
-      Swal.fire({
-        title: 'Hitung Gagal!',
-        text: 'Silakan periksa kembali Nominal anda',
-        icon: 'warning',
-        showConfirmButton:false,
-        showCancelButton:false,
-        allowOutsideClick: true,
-        allowEscapeKey: true,
-        timer: 3000,
-        timerProgressBar: true,
-        backdrop: `rgba(26,27,41,0.8)`,
-      });
-    } else {
-      $('#submit_add').prop('disabled', false);
-    }
+    // if (bersih == 0) {
+    //   $('#submit_add').prop('disabled', true);
+    //   Swal.fire({
+    //     title: 'Hitung Gagal!',
+    //     text: 'Silakan periksa kembali Nominal anda',
+    //     icon: 'warning',
+    //     showConfirmButton:false,
+    //     showCancelButton:false,
+    //     allowOutsideClick: true,
+    //     allowEscapeKey: true,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //     backdrop: `rgba(26,27,41,0.8)`,
+    //   });
+    // } else {
+    //   $('#submit_add').prop('disabled', false);
+    // }
   }
   function hitung_edit() {
     const ongkos = parseInt($('#ongkos_edit').val().replace(/[Rp. ]/g,''));
@@ -640,8 +472,8 @@
                         <span class="text-muted sr-only">Aksi</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
-                        <a href="#" class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
+                        <a class="dropdown-item" onclick="showUbah(${item.id})">Ubah</a>
+                        <a class="dropdown-item" onclick="hapus(${item.id})">Hapus</a>
                       </div>
                     </center>
                   </td>
@@ -1134,33 +966,45 @@
   }
   
   // RUPIAH TAMBAH
-  var ongkos1 = document.getElementById('ongkos_add');
-  var t_muat1 = document.getElementById('t_muat_add');
-  var t_bongkar1 = document.getElementById('t_bongkar_add');
-  var bbm_harga1 = document.getElementById('bbm_harga_add');
-  var uang_makan1 = document.getElementById('uang_makan_add');
-  var bpu_jumlah1 = document.getElementById('bpu_jumlah_add');
+  var tonase1 = document.getElementById('tonase_add');
+  var harga_arm1 = document.getElementById('harga_arm_add');
+  var entertainer1 = document.getElementById('entertainer_add');
+  var susut1 = document.getElementById('susut_add');
+  var jasa_pelabuhan1 = document.getElementById('jasa_pelabuhan_add');
+  var jasa_timbangan1 = document.getElementById('jasa_timbangan_add');
+  var deduction_bbm1 = document.getElementById('deduction_bbm_add');
+  var pengalihan_rute1 = document.getElementById('pengalihan_rute_add');
+  var harga_spk1 = document.getElementById('harga_spk_add');
   // RUPIAH EDIT
-  var ongkos2 = document.getElementById('ongkos_edit');
-  var t_muat2 = document.getElementById('t_muat_edit');
-  var t_bongkar2 = document.getElementById('t_bongkar_edit');
-  var bbm_harga2 = document.getElementById('bbm_harga_edit');
-  var uang_makan2 = document.getElementById('uang_makan_edit');
-  var bpu_jumlah2 = document.getElementById('bpu_jumlah_edit');
+  var tonase2= document.getElementById('tonase_edit');
+  var harga_arm2 = document.getElementById('harga_arm_edit');
+  var entertainer2 = document.getElementById('entertainer_edit');
+  var susut2 = document.getElementById('susut_edit');
+  var jasa_pelabuhan2 = document.getElementById('jasa_pelabuhan_edit');
+  var jasa_timbangan2 = document.getElementById('jasa_timbangan_edit');
+  var deduction_bbm2 = document.getElementById('deduction_bbm_edit');
+  var pengalihan_rute2 = document.getElementById('pengalihan_rute_edit');
+  var harga_spk2 = document.getElementById('harga_spk_edit');
 
-  if (ongkos1) { ongkos1.addEventListener('keyup', function(e){ ongkos1.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (t_muat1) { t_muat1.addEventListener('keyup', function(e){ t_muat1.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (t_bongkar1) { t_bongkar1.addEventListener('keyup', function(e){ t_bongkar1.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (bbm_harga1) { bbm_harga1.addEventListener('keyup', function(e){ bbm_harga1.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (uang_makan1) { uang_makan1.addEventListener('keyup', function(e){ uang_makan1.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (bpu_jumlah1) { bpu_jumlah1.addEventListener('keyup', function(e){ bpu_jumlah1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (tonase1) { tonase1.addEventListener('keyup', function(e){ tonase1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (harga_arm1) { harga_arm1.addEventListener('keyup', function(e){ harga_arm1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (entertainer1) { entertainer1.addEventListener('keyup', function(e){ entertainer1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (susut1) { susut1.addEventListener('keyup', function(e){ susut1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (jasa_pelabuhan1) { jasa_pelabuhan1.addEventListener('keyup', function(e){ jasa_pelabuhan1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (jasa_timbangan1) { jasa_timbangan1.addEventListener('keyup', function(e){ jasa_timbangan1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (deduction_bbm1) { deduction_bbm1.addEventListener('keyup', function(e){ deduction_bbm1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (pengalihan_rute1) { pengalihan_rute1.addEventListener('keyup', function(e){ pengalihan_rute1.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (harga_spk1) { harga_spk1.addEventListener('keyup', function(e){ harga_spk1.value = formatRupiah(this.value, 'Rp. '); }); }
 
-  if (ongkos2) { ongkos2.addEventListener('keyup', function(e){ ongkos2.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (t_muat2) { t_muat2.addEventListener('keyup', function(e){ t_muat2.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (t_bongkar2) { t_bongkar2.addEventListener('keyup', function(e){ t_bongkar2.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (bbm_harga2) { bbm_harga2.addEventListener('keyup', function(e){ bbm_harga2.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (uang_makan2) { uang_makan2.addEventListener('keyup', function(e){ uang_makan2.value = formatRupiah(this.value, 'Rp. '); }); }
-  if (bpu_jumlah2) { bpu_jumlah2.addEventListener('keyup', function(e){ bpu_jumlah2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (tonase2) { tonase2.addEventListener('keyup', function(e){ tonase2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (harga_arm2) { harga_arm2.addEventListener('keyup', function(e){ harga_arm2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (entertainer2) { entertainer2.addEventListener('keyup', function(e){ entertainer2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (susut2) { susut2.addEventListener('keyup', function(e){ susut2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (jasa_pelabuhan2) { jasa_pelabuhan2.addEventListener('keyup', function(e){ jasa_pelabuhan2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (jasa_timbangan2) { jasa_timbangan2.addEventListener('keyup', function(e){ jasa_timbangan2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (deduction_bbm2) { deduction_bbm2.addEventListener('keyup', function(e){ deduction_bbm2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (pengalihan_rute2) { pengalihan_rute2.addEventListener('keyup', function(e){ pengalihan_rute2.value = formatRupiah(this.value, 'Rp. '); }); }
+  if (harga_spk2) { harga_spk2.addEventListener('keyup', function(e){ harga_spk2.value = formatRupiah(this.value, 'Rp. '); }); }
 
   /* Fungsi formatRupiah */
   function formatRupiah(angka, prefix){

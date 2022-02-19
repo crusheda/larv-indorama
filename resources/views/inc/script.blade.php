@@ -74,9 +74,9 @@
   outline: none;
   cursor: pointer;
   padding: 15px;
-  opacity: 50%;
+  opacity: 100%;
   border-radius: 15px;
-  background-color:#1b68ff;
+  background-color:#1B68FF;
   ">
   <i class="fa-fw fa fa-hand-pointer-o nav-icon"></i></a>
   <script>
