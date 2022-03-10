@@ -32,6 +32,7 @@
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="#">Profil</a>
         <a class="dropdown-item" href="#">Ubah Password</a>
+        <a class="dropdown-item" href="#">Setting</a>
         <a class="dropdown-item" href="#logout" target="_blank" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">Logout</a>
       </div>
     </li>
